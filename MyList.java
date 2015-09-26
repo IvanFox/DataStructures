@@ -4,11 +4,12 @@
  */
 public class MyList <T> {
 
-    T items[];
-    int count;
+    private T items[];
+    private int count;
+    final int INITIAL_SIZE = 5;
 
-    public MyList(int size){
-        items = (T[]) new Object[size];
+    public MyList(){
+        items = (T[]) new Object[INITIAL_SIZE];
         count = 0;
     }
 
@@ -47,6 +48,7 @@ public class MyList <T> {
     }
 
     public void add(int index, T el){
+        increaseSize();
         if (checkRange(index)){
             for (int i = count; i > index ; i--) {
                 items[i] = items[i-1];
@@ -59,6 +61,7 @@ public class MyList <T> {
 
     // add new element to the end
     public void add(T el){
+        increaseSize();
         if (count != items.length)
             items[count++] = el;
         else
@@ -79,11 +82,27 @@ public class MyList <T> {
     }
 
     public int indexOf(T el){
-        for (int i = 0; i < count; i++) {
-            if (items[i] == el)
-                return i;
+        int sentinel = 0;
+        while (sentinel != count && items[sentinel] != el) {
+           sentinel++;
         }
-        return -1;
+        if (sentinel == count){
+            return -1;
+        }
+        return sentinel;
+    }
+
+    public void increaseSize(){
+        if(count > items.length / 2) {
+            T temp[] = items;
+            items = (T[]) new Object[temp.length * 2];
+
+            int i = 0;
+            while (temp[i] != null) {
+                items[i] = temp[i];
+                i++;
+            }
+        }
     }
 
     public void printElements(){

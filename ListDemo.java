@@ -9,7 +9,7 @@ public class ListDemo {
 
 
     public static void main(String[] args) {
-        MyList<Integer> list = new MyList<>(100);
+        MyList<Integer> list = new MyList<>();
 
         list.add(3);
         list.add(8);
@@ -26,24 +26,19 @@ public class ListDemo {
 
 
 
+        System.out.println(list.indexOf(7));
+        System.out.println();
 
-//        list.remove(2);
-//        System.out.println();
-//        list.printElements();
-//        System.out.println();
-//        list.add(2, 2);
-//        list.printElements();
-//        System.out.println();
-//        list.remove(4);
-//        list.printElements();
-//        System.out.println(list.isEmpty());
-//        System.out.println(list.indexOf(3));
-
-        for (int i = 0; i < list.getSize(); i++) {
+        int i = 0;
+        while (i < list.getSize()){
             if (isOdd(list.get(i))){
                 list.remove(i);
             }
+            else{
+                i++;
+            }
         }
+
         System.out.println();
         list.printElements();
 
