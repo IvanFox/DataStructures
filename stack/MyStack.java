@@ -1,4 +1,4 @@
-package stack;
+package DataStructures.stack;
 
 /**
  * Created by ivan on 27/09/15.

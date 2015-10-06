@@ -1,3 +1,5 @@
+package DataStructures.list;
+
 /**
  * Created by ivan on 24/09/15.
  * Implementation of a List using generic type of a class
