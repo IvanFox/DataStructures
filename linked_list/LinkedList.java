@@ -5,7 +5,7 @@ package DataStructures.linked_list;
  * Created by IvanLis on 13/10/15.
  */
 public class LinkedList<T> {
-    public Link<T> firstLink;
+    public Link firstLink;
 
 
     public boolean isEmpty(){
@@ -14,7 +14,7 @@ public class LinkedList<T> {
 
     public void insertNewLink(T object){
         if (firstLink == null){
-            firstLink = new Link<>(object);
+            firstLink = new Link(object);
         }
         else{
             Link newLink = new Link(object);
