@@ -1,6 +1,5 @@
 package DataStructures.linked_list;
 
-import java.util.List;
 
 /**
  * Created by IvanLis on 13/10/15.
@@ -46,28 +45,33 @@ public class LinkedList<T> {
         }
     }
 
+
     public Link find(T object){
 
         Link theLink = firstLink;
 
         if (!isEmpty()){
-            while (theLink.getLink() != object){
-                if (theLink.next == null){
-                    break;
+            if (theLink.getLink().toString().equals(object.toString())){
+                return theLink;
+            }
+            while (!theLink.getLink().toString().equals(object.toString()) && theLink.next != null ){
+                if (theLink.next.getLink().toString().equals(object.toString())){
+                    return theLink.next;
                 }
                 else{
                     theLink = theLink.next;
                 }
             }
+
         }
-        return theLink;
+        return null;
     }
 
     public Link removeLink(T object){
         Link currentLink = firstLink;
         Link previousLink = firstLink;
 
-        while (currentLink.getLink() != object){
+        while (!currentLink.getLink().toString().equals(object.toString())){
             if (currentLink.next == null){
                 return null;
             }

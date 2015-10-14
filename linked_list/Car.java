@@ -3,7 +3,7 @@ package DataStructures.linked_list;
 /**
  * Created by IvanLis on 13/10/15.
  */
-public class Car {
+public class Car implements Comparable {
 
     private String model;
     private String type;
@@ -16,6 +16,21 @@ public class Car {
         this.engingeSize = engingeSize;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getEngingeSize() {
+        return engingeSize;
+    }
+
+
+
+
     @Override
     public String toString() {
         return "Car{" +
@@ -23,5 +38,15 @@ public class Car {
                 ", type='" + type + '\'' +
                 ", engingeSize=" + engingeSize +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Object temp) {
+        if (this.toString().equalsIgnoreCase(temp.toString()))
+            return 0;
+        else {
+            return -1;
+        }
     }
 }
