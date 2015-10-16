@@ -24,7 +24,7 @@ public class LinkedList<T> {
     }
 
     public Link removeFirst(){
-        Link linkReference = firstLink;
+        Link deletedLink = firstLink;
 
         if(!isEmpty()){
             firstLink = firstLink.next;
@@ -32,7 +32,7 @@ public class LinkedList<T> {
         else
             System.out.println("Empty link list");
 
-        return linkReference;
+        return deletedLink;
     }
 
     public void display(){
@@ -71,23 +71,24 @@ public class LinkedList<T> {
         Link currentLink = firstLink;
         Link previousLink = firstLink;
 
-        while (!currentLink.getLink().toString().equals(object.toString())){
-            if (currentLink.next == null){
-                return null;
-            }
-            else{
-                previousLink = currentLink;
-                currentLink = currentLink.next;
+        // if it is a first element
+        if (currentLink.getLink().toString().equals(object.toString())){
+            removeFirst();
+        }
+
+        while (currentLink != null){
+            if (currentLink.getLink().toString().equals(object.toString())){
+                previousLink.next = currentLink.next;
+                return currentLink;
             }
 
-            if (currentLink == firstLink){
-                firstLink = firstLink.next;
-            }
-            else {
-                previousLink.next = currentLink;
-            }
+            previousLink = currentLink;
+            currentLink = currentLink.next;
+
+
         }
-        return currentLink;
+        return null;
+
     }
 
 }

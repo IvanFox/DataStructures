@@ -15,9 +15,14 @@ public class LinkedListDemo {
         linkedList.insertNewLink(new Car("Opel", "Diesel", 1.8));
         linkedList.insertNewLink(new Car("Fiat", "Diesel", 1.8));
 
-        linkedList.display();
+//        linkedList.display();
 //
-        System.out.println("\n" + linkedList.find(new Car("Fiat", "Diesel", 1.9)));
+//        System.out.println("\n" + linkedList.find(new Car("Fiat", "Diesel", 1.8)));
+//        System.out.println();
+
+        System.out.println(linkedList.removeLink(new Car("Opel", "Diesel", 1.8)));
+        System.out.println();
+        linkedList.display();
 
     }
 }
