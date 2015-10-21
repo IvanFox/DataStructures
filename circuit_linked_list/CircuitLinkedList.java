@@ -7,7 +7,7 @@ package DataStructures.circuit_linked_list;
  */
 public class CircuitLinkedList<T>{
 
-    Link head;
+    private Link head;
 
     public CircuitLinkedList(Link firstLink) {
         this.head = firstLink;
