@@ -11,6 +11,10 @@ public class Queue {
     private Link tail;
 
     public Queue() {
+        initHeadTail();
+    }
+
+    public void initHeadTail(){
         head = null;
         tail = null;
     }
@@ -41,6 +45,11 @@ public class Queue {
 
     public Link dequeue() {
         if (!isEmpty()) {
+            if (head == tail && head != null){
+                Link temp = head;
+                initHeadTail();
+                return temp;
+            }
             Link temp = head;
             head = temp.getNext();
             tail.setNext(head);
