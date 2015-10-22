@@ -20,11 +20,15 @@ public class QueueDemo {
         queue.display();
         System.out.println("-------------------------------\n");
 
-        System.out.println(queue.dequeue().getEl().toString());
-        System.out.println(queue.dequeue().getEl().toString());
-        System.out.println(queue.dequeue().getEl().toString());
-        System.out.println(queue.dequeue().getEl().toString());
-        System.out.println(queue.dequeue().getEl().toString());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
         System.out.println("Links left:\n");
         queue.display();
         System.out.println(queue.isEmpty());
