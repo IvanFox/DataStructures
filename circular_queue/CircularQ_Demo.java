@@ -17,9 +17,13 @@ public class CircularQ_Demo {
         queue.enqueue(new Link(41));
         queue.display();
         System.out.println("-------------------------------");
-        System.out.println("Deque: -> " + queue.dequeue().getEl());
-        System.out.println("Deque: -> " + queue.dequeue().getEl());
-        System.out.println("Deque: -> " + queue.dequeue().getEl());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
+        System.out.println("Deque: -> " + queue.dequeue());
         System.out.println("-------------------------------");
         queue.display();
     }
