@@ -60,10 +60,13 @@ public class Queue {
 
 
     public void display() {
+        if(head == null){
+            return;
+        }
         Link current = head;
 
         do {
-            System.out.println(current.getEl().toString());
+            System.out.println(current.getEl());
             current = current.getNext();
         } while(current != head);
 
