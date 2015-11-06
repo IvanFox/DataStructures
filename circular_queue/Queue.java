@@ -64,7 +64,6 @@ public class Queue {
             return;
         }
         Link current = head;
-
         do {
             System.out.println(current.getEl());
             current = current.getNext();
