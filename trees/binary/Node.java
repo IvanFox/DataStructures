@@ -41,6 +41,15 @@ public class Node <T> {
         this.rChild = rChild;
     }
 
+
+    public boolean hasLeft(){
+        return this.getlChild() != null;
+    }
+
+    public boolean hasRight(){
+        return this.getlChild() != null;
+    }
+
     private void initChildNodes(){
         lChild = null;
         rChild = null;
