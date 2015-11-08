@@ -19,11 +19,11 @@ public class BinaryTree {
     public BinaryTree() {
         initBinaryTree();
     }
-    
+
     private void initBinaryTree(Node node){
         root = node;
-        size = 0;
-        height = 0;
+        size = 1;
+        height = 1;
     }
 
     // init tree with no root
@@ -53,7 +53,20 @@ public class BinaryTree {
 
     public void addLChild(Node child){
         if (isEmpty()){
-            root = child;
+            System.out.println("Added as a root node");
+            initBinaryTree(child);
         }
+        else {
+
+        }
+    }
+
+    public void addRChild(Node child){
+        if (isEmpty()){
+            System.out.println("Added as a root node");
+            initBinaryTree(child);
+        }
+
+
     }
 }
