@@ -5,11 +5,12 @@ package DataStructures.trees.binary;
  * Student No: c00185055
  * All rights reserved
  */
-public class Node <T> {
+public class Node <T>  implements Comparable<Node>{
 
     private T data;
-    private Node lChild;
-    private Node rChild;
+    private Node parent;
+    private Node leftChild;
+    private Node rightChild;
 
 
     public Node(T data) {
@@ -17,41 +18,66 @@ public class Node <T> {
         initChildNodes();
     }
 
+    private void initChildNodes(){
+        leftChild = null;
+        rightChild = null;
+    }
+
     public T getData() {
-        return data;
+        return this.data;
     }
 
-    public Node getlChild() {
-        return lChild;
+    public Node getLeftChild() {
+        return leftChild;
     }
 
-    public Node getrChild() {
-        return rChild;
+    public Node getRightChild() {
+        return rightChild;
     }
 
     public void setData(T data) {
         this.data = data;
     }
 
-    public void setlChild(Node lChild) {
-        this.lChild = lChild;
+    public void setLeftChild(Node leftChild) {
+        this.leftChild = leftChild;
     }
 
-    public void setrChild(Node rChild) {
-        this.rChild = rChild;
+    public void setRightChild(Node rightChild) {
+        this.rightChild = rightChild;
     }
 
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
 
-    public boolean hasLeft(){
-        return this.getlChild() != null;
+    public Node getParent() {
+        return parent;
+    }
+
+    // returns true if node is a non leaf
+    public boolean isInternal(){
+        return !isLeaf();
+    }
+
+    public boolean isRoot(){
+        return parent == null;
+    }
+
+        public boolean hasLeft(){
+        return this.getLeftChild() != null;
     }
 
     public boolean hasRight(){
-        return this.getlChild() != null;
+        return this.getLeftChild() != null;
     }
 
-    private void initChildNodes(){
-        lChild = null;
-        rChild = null;
+    public boolean isLeaf(){
+        return !hasLeft() && !hasRight();
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.getData() != o.getData() ? 0 : 1;
     }
 }

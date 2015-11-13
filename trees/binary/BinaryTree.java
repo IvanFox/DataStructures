@@ -5,7 +5,7 @@ package DataStructures.trees.binary;
  * Student No: c00185055
  * All rights reserved
  */
-public class BinaryTree {
+public class BinaryTree <T> {
 
     private Node root;
     private int size;
@@ -16,25 +16,12 @@ public class BinaryTree {
         initBinaryTree(root);
     }
 
-    public BinaryTree() {
-        initBinaryTree();
-    }
 
     private void initBinaryTree(Node node){
         root = node;
         size = 1;
         height = 1;
-    }
-
-    // init tree with no root
-    private void initBinaryTree(){
-        root = null;
-        size = 0;
-        height = 0;
-    }
-
-    public boolean isEmpty(){
-        return root == null;
+        node.setParent(null);
     }
 
     public int getHeight() {
@@ -49,23 +36,23 @@ public class BinaryTree {
         return size;
     }
 
-
-
-    public void addLChild(Node child){
-        if (isEmpty()){
-            System.out.println("Added as a root node");
-            initBinaryTree(child);
+    public void addLChild(Node child, Node parent){
+        if(getHeight() == 1){
+            child.setParent(root);
+            root.setLeftChild(child);
         }
         else {
 
         }
+
+
+
+
     }
 
+
     public void addRChild(Node child){
-        if (isEmpty()){
-            System.out.println("Added as a root node");
-            initBinaryTree(child);
-        }
+
 
 
     }
