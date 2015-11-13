@@ -51,6 +51,7 @@ public class Node <T>  implements Comparable<Node>{
         this.parent = parent;
     }
 
+
     public Node getParent() {
         return parent;
     }
@@ -64,12 +65,12 @@ public class Node <T>  implements Comparable<Node>{
         return parent == null;
     }
 
-        public boolean hasLeft(){
+    public boolean hasLeft(){
         return this.getLeftChild() != null;
     }
 
     public boolean hasRight(){
-        return this.getLeftChild() != null;
+        return this.getRightChild() != null;
     }
 
     public boolean isLeaf(){
