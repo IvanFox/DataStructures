@@ -36,10 +36,18 @@ public class BinaryTree {
         return size;
     }
 
+    public Node traverseTree(Node current, Node previous){
+        previous = current;
+        current = current.getRightChild();
+        current.setParent(previous);
+        return current;
+    }
+
     public void addRightChild(Node node) {
         Node current = root;
+        Node previous = null;
         while(current.hasRight()){
-            current = current.getRightChild();
+            current = traverseTree(current, previous);
         }
         current.setRightChild(node);
         size++;
@@ -48,20 +56,21 @@ public class BinaryTree {
 
     public void addLeftChild(Node node){
         Node current = root;
+        Node previous = null;
         while (current.hasLeft()){
-            current = current.getLeftChild();
+            current = traverseTree(current, previous);
         }
         current.setLeftChild(node);
         size++;
     }
 
 
-    public void displayNodes(Node root){
+    public void traverseInOrder(Node root){
         if (root == null){
             return;
         }
-        displayNodes(root.getRightChild());
+        traverseInOrder(root.getRightChild());
         System.out.println(root.getData().toString());
-        displayNodes(root.getLeftChild());
+        traverseInOrder(root.getLeftChild());
     }
 }

@@ -25,7 +25,7 @@ public class BinaryDemo {
         binaryTree.addRightChild(new Node(person2));
         binaryTree.addRightChild(new Node(person4));
         binaryTree.addRightChild(new Node(person3));
-        binaryTree.displayNodes(initNode);
+        binaryTree.traverseInOrder(initNode);
 
 
 
