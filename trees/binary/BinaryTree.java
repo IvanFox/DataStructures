@@ -5,7 +5,7 @@ package DataStructures.trees.binary;
  * Student No: c00185055
  * All rights reserved
  */
-public class BinaryTree <T> {
+public class BinaryTree {
 
     private Node root;
     private int size;
@@ -36,24 +36,32 @@ public class BinaryTree <T> {
         return size;
     }
 
-    public void addLChild(Node child, Node parent){
-        if(getHeight() == 1){
-            child.setParent(root);
-            root.setLeftChild(child);
+    public void addRightChild(Node node) {
+        Node current = root;
+        while(current.hasRight()){
+            current = current.getRightChild();
         }
-        else {
-
-        }
-
-
-
+        current.setRightChild(node);
+        size++;
 
     }
 
+    public void addLeftChild(Node node){
+        Node current = root;
+        while (current.hasLeft()){
+            current = current.getLeftChild();
+        }
+        current.setLeftChild(node);
+        size++;
+    }
 
-    public void addRChild(Node child){
 
-
-
+    public void displayNodes(Node root){
+        if (root == null){
+            return;
+        }
+        displayNodes(root.getRightChild());
+        System.out.println(root.getData().toString());
+        displayNodes(root.getLeftChild());
     }
 }
