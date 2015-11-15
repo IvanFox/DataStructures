@@ -3,6 +3,7 @@ package DataStructures.trees.huffman_algo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -12,33 +13,52 @@ import java.util.HashMap;
  */
 public class Logic {
 
-    private static HashMap<Character, Integer> readFile(String filename, HashMap<Character, Integer> hashMap){
+    private static int TOTAL_SIZE = 0;
+
+    private static HashMap<Character, Double> readFile(String filename, HashMap<Character, Double> hashMap){
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            int c, value;
+            double c, value;
             while ((c = bufferedReader.read()) != -1) {
+                // if current char is not in exist as a value in HashMap -> add it
                 if(hashMap.get((char)c) == null) {
-                    hashMap.put((char) c, 1);
+                    hashMap.put((char) c, Double.valueOf(1));
                 }
-                else {
+                else { // else increment value
                     value = hashMap.get((char)c);
                     hashMap.put((char)c, ++value);
                 }
-
+                TOTAL_SIZE++;
             }
-
         }catch (Exception e){
         e.printStackTrace();
         }
         return hashMap;
     }
 
+    private static HashMap<Character, Double> findOccurrence(HashMap<Character, Double> hashMap){
+        for (Map.Entry<Character, Double> entry : hashMap.entrySet()){
+            Double value = entry.getValue();
+            value /= TOTAL_SIZE;
+            hashMap.put(entry.getKey(), value);
+        }
+        return hashMap;
+
+
+    }
+
     public static void main(String[] args) {
         String filename = "/Users/IvanLis/test.txt";
 
-        HashMap<Character, Integer> hashMap = new HashMap<>();
+        HashMap<Character, Double> hashMap = new HashMap<>();
         hashMap = readFile(filename,hashMap);
 
-        System.out.println(hashMap.get('a'));
+        hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
+        System.out.println();
+        System.out.println(TOTAL_SIZE);
+
+        hashMap = findOccurrence(hashMap);
+        hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
+
 
 
     }
