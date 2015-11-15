@@ -28,6 +28,10 @@ public class BinaryDemo {
         binaryTree.traverseInOrder(initNode);
 
 
+        System.out.println(binaryTree.getSize());
+
+
+
 
     }
 
