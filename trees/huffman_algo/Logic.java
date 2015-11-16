@@ -1,12 +1,11 @@
 package DataStructures.trees.huffman_algo;
 
-import DataStructures.trees.binary.BinaryTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 
 
 /**
@@ -39,7 +38,7 @@ public class Logic {
     }
 
     private static HashMap<Character, Double> findOccurrence(HashMap<Character, Double> hashMap){
-        for (Map.Entry<Character, Double> entry : hashMap.entrySet()){
+        for (Entry<Character, Double> entry : hashMap.entrySet()){
             Double value = entry.getValue();
             value /= TOTAL_SIZE;
             hashMap.put(entry.getKey(), value);
@@ -47,37 +46,51 @@ public class Logic {
         return hashMap;
     }
 
-    private static Map.Entry<Character, Double> findLowest (HashMap<Character, Double> hashMap){
-        Iterator<Map.Entry<Character, Double>> itr = hashMap.entrySet().iterator();
-        Map.Entry<Character, Double> lowest = itr.next();
+    private static Entry<Character, Double> findLowest (HashMap<Character, Double> hashMap){
+        Iterator<Entry<Character, Double>> itr = hashMap.entrySet().iterator();
+        Entry<Character, Double> lowest = itr.next();
+
         while(itr.hasNext()){
-            Map.Entry<Character, Double> current = itr.next();
+            Entry<Character, Double> current = itr.next();
             if (current.getValue() < lowest.getValue()){
                 lowest = current;
             }
         }
-        System.out.println(lowest);
         return lowest;
+    }
+
+    private static Entry<Character, Double>[] populateSortedArray(Entry sortedEntry[], HashMap<Character,Double> hashMap){
+        Entry<Character, Double> current;
+        int i = 0;
+        while (!hashMap.isEmpty()) {
+            current = findLowest(hashMap);
+            sortedEntry[i] = current;
+            hashMap.remove(current.getKey());
+            i++;
+        }
+        return sortedEntry;
     }
 
     public static void main(String[] args) {
         String filename = "/Users/IvanLis/test.txt";
-
         HashMap<Character, Double> hashMap = new HashMap<>();
-        hashMap = readFile(filename,hashMap);
 
-        hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
-        System.out.println(TOTAL_SIZE);
+
+
+        hashMap = readFile(filename, hashMap);
+        Entry[] sortedEntry = new Entry[hashMap.size()];
+
+
+        // update hashMap
         hashMap = findOccurrence(hashMap);
+        // print each element
         hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
+        
+
+        sortedEntry = populateSortedArray(sortedEntry, hashMap);
+        System.out.println(hashMap.size());
 
 
-        findLowest(hashMap);
-
-
-
-
-
+        System.out.println(sortedEntry.length);
     }
-
 }
