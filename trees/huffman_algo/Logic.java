@@ -3,8 +3,7 @@ package DataStructures.trees.huffman_algo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.Map.Entry;
 
 
@@ -59,27 +58,26 @@ public class Logic {
         return lowest;
     }
 
-    private static Entry<Character, Double>[] populateSortedArray(Entry<Character, Double> sortedEntry[],
-                                                                  HashMap<Character,Double> hashMap){
+    private static List<Node> populateSortedNodes (List<Node> nodes,
+                                                  HashMap<Character, Double> hashMap){
         Entry<Character, Double> current;
-        int i = 0;
         while (!hashMap.isEmpty()) {
             current = findLowest(hashMap);
-            sortedEntry[i] = current;
+            nodes.add(new Node(current));
             hashMap.remove(current.getKey());
-            i++;
+
         }
-        return sortedEntry;
+        return nodes;
     }
+
+
 
     public static void main(String[] args) {
         String filename = "/Users/IvanLis/test.txt";
         HashMap<Character, Double> hashMap = new HashMap<>();
 
-
-
         hashMap = readFile(filename, hashMap);
-        Entry[] sortedEntry = new Entry[hashMap.size()];
+        List<Node> nodes = new ArrayList<>();
 
 
         // update hashMap
@@ -88,11 +86,9 @@ public class Logic {
         hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
 
 
-        sortedEntry = populateSortedArray(sortedEntry, hashMap);
+        nodes = populateSortedNodes(nodes, hashMap);
         System.out.println(hashMap.size());
 
-        for (Entry e : sortedEntry){
-            System.out.println(e);
-        }
+        nodes.stream().forEach(node -> System.out.println(node));
     }
 }
