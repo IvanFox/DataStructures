@@ -59,7 +59,8 @@ public class Logic {
         return lowest;
     }
 
-    private static Entry<Character, Double>[] populateSortedArray(Entry sortedEntry[], HashMap<Character,Double> hashMap){
+    private static Entry<Character, Double>[] populateSortedArray(Entry<Character, Double> sortedEntry[],
+                                                                  HashMap<Character,Double> hashMap){
         Entry<Character, Double> current;
         int i = 0;
         while (!hashMap.isEmpty()) {
@@ -85,12 +86,13 @@ public class Logic {
         hashMap = findOccurrence(hashMap);
         // print each element
         hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
-        
+
 
         sortedEntry = populateSortedArray(sortedEntry, hashMap);
         System.out.println(hashMap.size());
 
-
-        System.out.println(sortedEntry.length);
+        for (Entry e : sortedEntry){
+            System.out.println(e);
+        }
     }
 }
