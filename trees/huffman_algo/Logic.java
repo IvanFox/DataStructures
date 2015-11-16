@@ -5,6 +5,7 @@ import DataStructures.trees.binary.BinaryTree;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -46,7 +47,18 @@ public class Logic {
         return hashMap;
     }
 
-
+    private static Map.Entry<Character, Double> findLowest (HashMap<Character, Double> hashMap){
+        Iterator<Map.Entry<Character, Double>> itr = hashMap.entrySet().iterator();
+        Map.Entry<Character, Double> lowest = itr.next();
+        while(itr.hasNext()){
+            Map.Entry<Character, Double> current = itr.next();
+            if (current.getValue() < lowest.getValue()){
+                lowest = current;
+            }
+        }
+        System.out.println(lowest);
+        return lowest;
+    }
 
     public static void main(String[] args) {
         String filename = "/Users/IvanLis/test.txt";
@@ -60,7 +72,7 @@ public class Logic {
         hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
 
 
-
+        findLowest(hashMap);
 
 
 
