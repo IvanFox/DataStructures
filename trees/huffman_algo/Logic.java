@@ -14,9 +14,15 @@ import java.util.Map.Entry;
  */
 public class Logic {
 
-    private static int TOTAL_SIZE = 0; // Hold total length of a text doc
+    private int TOTAL_SIZE = 0; // Hold total length of a text doc
+    private String filename;
 
-    private static HashMap<Character, Double> readFile(String filename, HashMap<Character, Double> hashMap){
+
+    public Logic(String filename) {
+        this.filename = filename;
+    }
+
+    public HashMap<Character, Double> readFile(HashMap<Character, Double> hashMap){
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             double c, value;
             while ((c = bufferedReader.read()) != -1) {
@@ -36,7 +42,7 @@ public class Logic {
         return hashMap;
     }
 
-    private static HashMap<Character, Double> findOccurrence(HashMap<Character, Double> hashMap){
+    public HashMap<Character, Double> findOccurrence(HashMap<Character, Double> hashMap){
         for (Entry<Character, Double> entry : hashMap.entrySet()){
             Double value = entry.getValue();
             value /= TOTAL_SIZE;
@@ -45,16 +51,16 @@ public class Logic {
         return hashMap;
     }
 
-    private static List<Node> populateListOfNodes(List<Node> nodes, HashMap<Character, Double> hashMap){
+    public List<Node> populateListOfNodes(List<Node> nodes, HashMap<Character, Double> hashMap){
         Iterator<Entry<Character, Double>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
             nodes.add(new Node(itr.next()));
         }
         return nodes;
     }
-    
 
-     private static List<Node> createTree(List<Node> nodes){
+
+     public static Node createTree(List<Node> nodes){
         Node lowest1, lowest2;
         while (nodes.size() != 1){
             lowest1 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
@@ -64,32 +70,20 @@ public class Logic {
             nodes.add(new Node(lowest1, lowest2));
 
         }
-        return nodes;
+        return nodes.get(0);
     }
 
-    public static void main(String[] args) {
-        String filename = "/Users/IvanLis/test.txt";
-        HashMap<Character, Double> hashMap = new HashMap<>();
-
-        hashMap = readFile(filename, hashMap);
-        List<Node> nodes = new ArrayList<>();
-
-
-        // update hashMap
-        hashMap = findOccurrence(hashMap);
-        // print each element
-        hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
-
-
-        nodes = populateListOfNodes(nodes, hashMap);
-//        System.out.println(hashMap.size());
-
-
-        nodes = createTree(nodes);
-        Node root = nodes.get(0);
-        System.out.println(root);
-
+    public HashMap<Character, String> generateCode(Node node, HashMap<Character, String> map, String s) {
+        if (node.isLeaf()) {
+            map.put(node.getCharacter(), s);
+            return map;
+        }
+        generateCode(node.getLeftChild(), map, s + '0');
+        generateCode(node.getRightChild(), map, s + '1');
+        return map;
     }
+
+
 
 
 }
