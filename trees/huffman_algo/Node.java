@@ -7,16 +7,18 @@ import java.util.Map;
  * Student No: c00185055
  * All rights reserved
  */
-public class Node {
+public class Node implements Comparable<Node>{
 
     private Character character;
     private double occurrence;
     private Node leftChild;
     private Node rightChild;
 
-    public Node(Character character, double occurrence) {
-        this.character = character;
-        this.occurrence = occurrence;
+    public Node(Node one, Node two) {
+        this.leftChild = one;
+        this.rightChild = two;
+        this.occurrence = one.getOccurrence() + two.getOccurrence();
+        this.character = null;
     }
 
     public Node(Map.Entry<Character, Double> entry){
@@ -64,5 +66,15 @@ public class Node {
     @Override
     public String toString(){
         return "Character: " + character + " = Occurrence: " + occurrence;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        if (this.getOccurrence() > o.getOccurrence())
+            return 1;
+        else if (this.getOccurrence() < o.getOccurrence())
+            return -1;
+        else
+            return 0;
     }
 }
