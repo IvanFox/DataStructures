@@ -1,8 +1,6 @@
 package DataStructures.trees.huffman_algo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by IvanLis on 17/11/15.
@@ -15,13 +13,15 @@ public class Demo {
 
         HashMap<Character, Integer> hashMap = new HashMap<>();
         HashMap<Character, String> huffmanCodes = new HashMap<>();
-        List<Node> nodes = new ArrayList<>();
+
         Logic logic = new Logic("/Users/IvanLis/test.txt");
 
-        huffmanCodes = logic.generateHuffmanCode(logic.createTree(logic.convertHashMapToList(nodes,
+        huffmanCodes = logic.generateHuffmanScheme(logic.createTree(logic.convertHashMapToList(
                 logic.readFile(hashMap))), huffmanCodes, "");
 
         huffmanCodes.forEach((k,v)-> System.out.println("Char: " + k + " - Code: " + v));
+        System.out.println();
+        System.out.println(logic.generateEncodedOutput(huffmanCodes));
 
 
 
