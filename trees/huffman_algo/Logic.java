@@ -12,29 +12,37 @@ import java.util.Map.Entry;
  * Student No: c00185055
  * All rights reserved
  */
+
 public class Logic {
 
-    private int TOTAL_SIZE = 0; // Hold total length of a text doc
-    private String filename;
+    private final String filename;
 
 
+    /**
+     *
+     * @param filename the filename of an text file
+     */
     public Logic(String filename) {
         this.filename = filename;
     }
 
-    public HashMap<Character, Double> readFile(HashMap<Character, Double> hashMap){
+    /**
+     *
+     * @param hashMap
+     * @return read file and returns HashMap with an character as a key  and number of occurrence as a value
+     */
+    public HashMap<Character, Integer> readFile(HashMap<Character, Integer> hashMap){
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            double c, value;
+            int c, value;
             while ((c = bufferedReader.read()) != -1) {
                 // if current char is not exist as a value in HashMap -> add it
                 if(hashMap.get((char)c) == null) {
-                    hashMap.put((char) c, Double.valueOf(1));
+                    hashMap.put((char) c, 1);
                 }
                 else { // else increment value
                     value = hashMap.get((char)c);
                     hashMap.put((char)c, ++value);
                 }
-                TOTAL_SIZE++;
             }
         }catch (Exception e){
         e.printStackTrace();
@@ -42,23 +50,25 @@ public class Logic {
         return hashMap;
     }
 
-    public HashMap<Character, Double> findOccurrence(HashMap<Character, Double> hashMap){
-        for (Entry<Character, Double> entry : hashMap.entrySet()){
-            Double value = entry.getValue();
-            value /= TOTAL_SIZE;
-            hashMap.put(entry.getKey(), value);
-        }
-        return hashMap;
-    }
-
-    public List<Node> convertHashMapToList (List<Node> nodes, HashMap<Character, Double> hashMap){
-        Iterator<Entry<Character, Double>> itr = hashMap.entrySet().iterator();
+    /**
+     *
+     * @param nodes
+     * @param hashMap
+     * @return returns collection of nodes -> represented as a list
+     */
+    public List<Node> convertHashMapToList (List<Node> nodes, HashMap<Character, Integer> hashMap){
+        Iterator<Entry<Character, Integer>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
             nodes.add(new Node(itr.next()));
         }
         return nodes;
     }
 
+    /**
+     *
+     * @param nodes receives number of nodes as a list
+     * @return returns the root of the created binary tree
+     */
      public static Node createTree(List<Node> nodes){
         Node lowest1, lowest2;
         while (nodes.size() != 1){
@@ -71,13 +81,13 @@ public class Logic {
         return nodes.get(0);
     }
 
-    public HashMap<Character, String> generateCode(Node node, HashMap<Character, String> map, String s) {
+    public HashMap<Character, String> generateHuffmanCode(Node node, HashMap<Character, String> map, String s) {
         if (node.isLeaf()) {
             map.put(node.getCharacter(), s);
             return map;
         }
-        generateCode(node.getLeftChild(), map, s + '0');
-        generateCode(node.getRightChild(), map, s + '1');
+        generateHuffmanCode(node.getLeftChild(), map, s + "0");
+        generateHuffmanCode(node.getRightChild(), map, s + "1");
         return map;
     }
 }

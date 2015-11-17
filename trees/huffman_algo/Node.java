@@ -10,7 +10,7 @@ import java.util.Map;
 public class Node implements Comparable<Node>{
 
     private Character character;
-    private double occurrence;
+    private int occurrence;
     private Node leftChild;
     private Node rightChild;
 
@@ -22,7 +22,7 @@ public class Node implements Comparable<Node>{
         this.character = null;
     }
 
-    public Node(Map.Entry<Character, Double> entry){
+    public Node(Map.Entry<Character, Integer> entry){
         this.character = entry.getKey();
         this.occurrence = entry.getValue();
     }
@@ -33,7 +33,8 @@ public class Node implements Comparable<Node>{
 
 
 
-    public double getOccurrence() {
+
+    public int getOccurrence() {
         return occurrence;
     }
 
@@ -59,11 +60,6 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node node) {
-        if (this.getOccurrence() > node.getOccurrence())
-            return 1;
-        else if (this.getOccurrence() < node.getOccurrence())
-            return -1;
-        else
-            return 0;
+        return this.getOccurrence() - node.getOccurrence();
     }
 }

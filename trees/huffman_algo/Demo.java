@@ -11,17 +11,15 @@ import java.util.List;
  */
 public class Demo {
 
-
     public static void main(String[] args) {
 
-        HashMap<Character, Double> hashMap = new HashMap<>();
+        HashMap<Character, Integer> hashMap = new HashMap<>();
         HashMap<Character, String> huffmanCodes = new HashMap<>();
         List<Node> nodes = new ArrayList<>();
         Logic logic = new Logic("/Users/IvanLis/test.txt");
 
-
-        huffmanCodes = logic.generateCode(logic.createTree(logic.convertHashMapToList(nodes,
-                logic.findOccurrence(logic.readFile(hashMap)))), huffmanCodes, "");
+        huffmanCodes = logic.generateHuffmanCode(logic.createTree(logic.convertHashMapToList(nodes,
+                logic.readFile(hashMap))), huffmanCodes, "");
 
         huffmanCodes.forEach((k,v)-> System.out.println("Char: " + k + " - Code: " + v));
 
