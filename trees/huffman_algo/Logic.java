@@ -45,32 +45,27 @@ public class Logic {
         return hashMap;
     }
 
-    private static Entry<Character, Double> findLowest (HashMap<Character, Double> hashMap){
+    private static List<Node> populateListOfNodes(List<Node> nodes, HashMap<Character, Double> hashMap){
         Iterator<Entry<Character, Double>> itr = hashMap.entrySet().iterator();
-        Entry<Character, Double> lowest = itr.next();
-
         while(itr.hasNext()){
-            Entry<Character, Double> current = itr.next();
-            if (current.getValue() < lowest.getValue()){
-                lowest = current;
-            }
+            nodes.add(new Node(itr.next()));
         }
-        return lowest;
+        return nodes;
     }
+    
 
-    private static List<Node> populateSortedNodes (List<Node> nodes,
-                                                  HashMap<Character, Double> hashMap){
-        Entry<Character, Double> current;
-        while (!hashMap.isEmpty()) {
-            current = findLowest(hashMap);
-            nodes.add(new Node(current));
-            hashMap.remove(current.getKey());
+     private static List<Node> createTree(List<Node> nodes){
+        Node lowest1, lowest2;
+        while (nodes.size() != 1){
+            lowest1 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
+            nodes.remove(lowest1);
+            lowest2 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
+            nodes.remove(lowest2);
+            nodes.add(new Node(lowest1, lowest2));
 
         }
         return nodes;
     }
-
-
 
     public static void main(String[] args) {
         String filename = "/Users/IvanLis/test.txt";
@@ -86,9 +81,15 @@ public class Logic {
         hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
 
 
-        nodes = populateSortedNodes(nodes, hashMap);
-        System.out.println(hashMap.size());
+        nodes = populateListOfNodes(nodes, hashMap);
+//        System.out.println(hashMap.size());
 
-        nodes.stream().forEach(node -> System.out.println(node));
+
+        nodes = createTree(nodes);
+        Node root = nodes.get(0);
+        System.out.println(root);
+
     }
+
+
 }
