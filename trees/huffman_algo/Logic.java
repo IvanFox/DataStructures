@@ -52,11 +52,11 @@ public class Logic {
 
     /**
      *
-     * @param nodes
      * @param hashMap
      * @return returns collection of nodes -> represented as a list
      */
-    public List<Node> convertHashMapToList (List<Node> nodes, HashMap<Character, Integer> hashMap){
+    public List<Node> convertHashMapToList (HashMap<Character, Integer> hashMap){
+        List<Node> nodes = new ArrayList<>();
         Iterator<Entry<Character, Integer>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
             nodes.add(new Node(itr.next()));
@@ -81,13 +81,27 @@ public class Logic {
         return nodes.get(0);
     }
 
-    public HashMap<Character, String> generateHuffmanCode(Node node, HashMap<Character, String> map, String s) {
+    public HashMap<Character, String> generateHuffmanScheme(Node node, HashMap<Character, String> map, String s) {
         if (node.isLeaf()) {
             map.put(node.getCharacter(), s);
             return map;
         }
-        generateHuffmanCode(node.getLeftChild(), map, s + "0");
-        generateHuffmanCode(node.getRightChild(), map, s + "1");
+        generateHuffmanScheme(node.getLeftChild(), map, s + "0");
+        generateHuffmanScheme(node.getRightChild(), map, s + "1");
         return map;
+    }
+
+    public StringBuilder generateEncodedOutput(HashMap<Character, String> huffmanScheme){
+        StringBuilder output = new StringBuilder();
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            int c;
+            while ((c = bufferedReader.read()) != -1) {
+                output.append(huffmanScheme.get((char)c));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return output;
+
     }
 }
