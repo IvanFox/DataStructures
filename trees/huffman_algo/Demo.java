@@ -16,21 +16,12 @@ public class Demo {
 
         HashMap<Character, Double> hashMap = new HashMap<>();
         HashMap<Character, String> huffmanCodes = new HashMap<>();
-        Node root;
+        List<Node> nodes = new ArrayList<>();
         Logic logic = new Logic("/Users/IvanLis/test.txt");
 
-        hashMap = logic.readFile(hashMap);
-        List<Node> nodes = new ArrayList<>();
 
-
-        // update hashMap
-        hashMap = logic.findOccurrence(hashMap);
-        // print each element
-//        hashMap.forEach((k, v) -> System.out.println(k + " = " + v));
-
-        nodes = logic.populateListOfNodes(nodes, hashMap);
-        root = logic.createTree(nodes);
-        huffmanCodes = logic.generateCode(root, huffmanCodes, "");
+        huffmanCodes = logic.generateCode(logic.createTree(logic.convertHashMapToList(nodes,
+                logic.findOccurrence(logic.readFile(hashMap)))), huffmanCodes, "");
 
         huffmanCodes.forEach((k,v)-> System.out.println("Char: " + k + " - Code: " + v));
 

@@ -32,33 +32,21 @@ public class Node implements Comparable<Node>{
     }
 
 
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
 
     public double getOccurrence() {
         return occurrence;
     }
 
-    public void setOccurrence(double occurrence) {
-        this.occurrence = occurrence;
-    }
 
     public Node getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(Node leftChild) {
-        this.leftChild = leftChild;
-    }
 
     public Node getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(Node rightChild) {
-        this.rightChild = rightChild;
-    }
 
     public boolean isLeaf(){
         return leftChild == null && rightChild == null;

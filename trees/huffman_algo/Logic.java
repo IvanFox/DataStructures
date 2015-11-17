@@ -51,14 +51,13 @@ public class Logic {
         return hashMap;
     }
 
-    public List<Node> populateListOfNodes(List<Node> nodes, HashMap<Character, Double> hashMap){
+    public List<Node> convertHashMapToList (List<Node> nodes, HashMap<Character, Double> hashMap){
         Iterator<Entry<Character, Double>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
             nodes.add(new Node(itr.next()));
         }
         return nodes;
     }
-
 
      public static Node createTree(List<Node> nodes){
         Node lowest1, lowest2;
@@ -68,7 +67,6 @@ public class Logic {
             lowest2 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
             nodes.remove(lowest2);
             nodes.add(new Node(lowest1, lowest2));
-
         }
         return nodes.get(0);
     }
@@ -82,8 +80,4 @@ public class Logic {
         generateCode(node.getRightChild(), map, s + '1');
         return map;
     }
-
-
-
-
 }
