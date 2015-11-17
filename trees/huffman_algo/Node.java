@@ -14,6 +14,7 @@ public class Node implements Comparable<Node>{
     private Node leftChild;
     private Node rightChild;
 
+
     public Node(Node one, Node two) {
         this.leftChild = one;
         this.rightChild = two;
@@ -69,10 +70,10 @@ public class Node implements Comparable<Node>{
     }
 
     @Override
-    public int compareTo(Node o) {
-        if (this.getOccurrence() > o.getOccurrence())
+    public int compareTo(Node node) {
+        if (this.getOccurrence() > node.getOccurrence())
             return 1;
-        else if (this.getOccurrence() < o.getOccurrence())
+        else if (this.getOccurrence() < node.getOccurrence())
             return -1;
         else
             return 0;
