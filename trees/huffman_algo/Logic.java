@@ -21,7 +21,7 @@ public class Logic {
     private List<Node> nodes;
     private Node root;
 
-    public Logic(String filename) {
+    public Logic(String filename) throws Exception {
         this.filename = filename;
         hashMap = new HashMap<>();
         nodes = new ArrayList<>();
@@ -30,23 +30,20 @@ public class Logic {
     }
 
 
-    public void readFile(){
+    public void readFile() throws Exception {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            int c, value;
-            while ((c = bufferedReader.read()) != -1) {
+            int ch, value;
+            while ((ch = bufferedReader.read()) != -1) {
                 // if current char is not exist as a value in HashMap -> add it
-                if(hashMap.get((char)c) == null) {
-                    hashMap.put((char) c, 1);
+                if(hashMap.get((char)ch) == null) {
+                    hashMap.put((char) ch, 1);
                 }
                 else { // else increment value
-                    value = hashMap.get((char)c);
-                    hashMap.put((char)c, ++value);
+                    value = hashMap.get((char)ch);
+                    hashMap.put((char)ch, ++value);
                 }
             }
-        }catch (Exception e){
-        e.printStackTrace();
         }
-
     }
 
 
@@ -86,7 +83,7 @@ public class Logic {
     }
 
 
-    private void initClassStructure(){
+    private void initClassStructure() throws Exception {
         readFile();
         convertHashMapToList();
         createTree();
@@ -99,12 +96,11 @@ public class Logic {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;
             while ((c = bufferedReader.read()) != -1) {
-                output.append(huffmanCodes.get((char)c) + "\n");
+                output.append(huffmanCodes.get((char) c));
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         return output;
-
     }
 }
