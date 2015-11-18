@@ -1,6 +1,5 @@
 package DataStructures.trees.huffman_algo;
 
-import java.util.HashMap;
 
 /**
  * Created by IvanLis on 17/11/15.
@@ -9,15 +8,11 @@ import java.util.HashMap;
  */
 public class Demo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Logic logic = new Logic("/Users/IvanLis/test.txt");
-        logic.getHuffmanCodes().forEach((k,v) -> System.out.println("Key is: " + k  + "\tValue is: " + v));
-        System.out.println();
+        logic.getHuffmanCodes().forEach((k,v) -> System.out.println("Character: " + k  + "\tCode: " + v));
+        System.out.println("\nEncoded output:");
         System.out.println(logic.generateEncodedOutput());
-
-
-
-
     }
 }
