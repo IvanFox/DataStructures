@@ -11,17 +11,10 @@ public class Demo {
 
     public static void main(String[] args) {
 
-        HashMap<Character, Integer> hashMap = new HashMap<>();
-        HashMap<Character, String> huffmanCodes = new HashMap<>();
-
         Logic logic = new Logic("/Users/IvanLis/test.txt");
-
-        huffmanCodes = logic.generateHuffmanScheme(logic.createTree(logic.convertHashMapToList(
-                logic.readFile(hashMap))), huffmanCodes, "");
-
-        huffmanCodes.forEach((k,v)-> System.out.println("Char: " + k + " - Code: " + v));
+        logic.getHuffmanCodes().forEach((k,v) -> System.out.println("Key is: " + k  + "\tValue is: " + v));
         System.out.println();
-        System.out.println(logic.generateEncodedOutput(huffmanCodes));
+        System.out.println(logic.generateEncodedOutput());
 
 
 
