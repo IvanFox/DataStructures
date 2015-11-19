@@ -1,4 +1,4 @@
-package DataStructures.circular_queue;
+package dataStructures.circular_queue;
 
 /**
  * Created by IvanLis on 21/10/15.

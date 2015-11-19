@@ -1,4 +1,4 @@
-package DataStructures.list;
+package dataStructures.list;
 /**
  * Created by ivan on 24/09/15.
 */

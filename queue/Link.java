@@ -1,4 +1,4 @@
-package DataStructures.queue;
+package dataStructures.queue;
 
 /**
  * Created by IvanLis on 17/10/15.

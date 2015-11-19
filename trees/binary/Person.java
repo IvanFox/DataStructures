@@ -1,4 +1,4 @@
-package DataStructures.trees.binary;
+package dataStructures.trees.binary;
 
 /**
  * Created by IvanLis on 13/11/15.

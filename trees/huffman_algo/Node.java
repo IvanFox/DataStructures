@@ -1,4 +1,4 @@
-package DataStructures.trees.huffman_algo;
+package dataStructures.trees.huffman_algo;
 
 import java.util.Map;
 

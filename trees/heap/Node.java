@@ -1,4 +1,4 @@
-package DataStructures.trees.heap;
+package dataStructures.trees.heap;
 
 /**
  * Created by IvanLis on 08/11/15.

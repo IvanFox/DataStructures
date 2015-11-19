@@ -1,4 +1,4 @@
-package DataStructures.trees.huffman_algo;
+package dataStructures.trees.huffman_algo;
 
 
 /**
@@ -14,5 +14,6 @@ public class Demo {
         logic.getHuffmanCodes().forEach((k,v) -> System.out.println("Character: " + k  + "\tCode: " + v));
         System.out.println("\nEncoded output:");
         System.out.println(logic.generateEncodedOutput());
+
     }
 }

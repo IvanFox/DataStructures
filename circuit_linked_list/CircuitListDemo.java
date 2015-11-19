@@ -1,4 +1,4 @@
-package DataStructures.circuit_linked_list;
+package dataStructures.circuit_linked_list;
 
 /**
  * Created by IvanLis on 21/10/15.

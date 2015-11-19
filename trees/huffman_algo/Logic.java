@@ -1,4 +1,4 @@
-package DataStructures.trees.huffman_algo;
+package dataStructures.trees.huffman_algo;
 
 
 import java.io.BufferedReader;
@@ -29,8 +29,7 @@ public class Logic {
         initClassStructure();
     }
 
-
-    public void readFile() throws Exception {
+     private void readFile() throws Exception {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int ch, value;
             while ((ch = bufferedReader.read()) != -1) {
@@ -46,16 +45,14 @@ public class Logic {
         }
     }
 
-
-    public void convertHashMapToList (){
+    private void convertHashMapToList(){
         Iterator<Entry<Character, Integer>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
             nodes.add(new Node(itr.next()));
         }
     }
 
-
-     public void  createTree(){
+     private void  createTree(){
         Node lowest1, lowest2;
         while (nodes.size() != 1){
             lowest1 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
@@ -67,7 +64,7 @@ public class Logic {
         root = nodes.get(0);
     }
 
-    public HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
+    private HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
         if (root.isLeaf()) {
             map.put(root.getCharacter(), s);
             return map;
@@ -82,24 +79,20 @@ public class Logic {
         return null;
     }
 
-
     private void initClassStructure() throws Exception {
         readFile();
         convertHashMapToList();
         createTree();
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
-
     }
 
-    public StringBuilder generateEncodedOutput(){
+    public StringBuilder generateEncodedOutput() throws Exception {
         StringBuilder output = new StringBuilder();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;
             while ((c = bufferedReader.read()) != -1) {
                 output.append(huffmanCodes.get((char) c));
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
         return output;
     }
