@@ -45,6 +45,10 @@ public class Logic {
         }
     }
 
+    public HashMap<Character, Integer> getHashMap() {
+        return hashMap;
+    }
+
     private void convertHashMapToList(){
         Iterator<Entry<Character, Integer>> itr = hashMap.entrySet().iterator();
         while(itr.hasNext()){
@@ -84,6 +88,24 @@ public class Logic {
         convertHashMapToList();
         createTree();
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
+    }
+
+    public StringBuilder decodeEncodedOutput(StringBuilder output){
+        StringBuilder currentChar = new StringBuilder();
+        StringBuilder decodedOutput = new StringBuilder();
+        int currPosition = 0;
+
+        while (output.length() > 0){
+            currentChar.append(output.charAt(currPosition));
+            output.deleteCharAt(0);
+            if (getHuffmanCodes().containsValue(currentChar.toString())){
+                getHuffmanCodes().entrySet().stream().filter(e -> Objects.equals(e.getValue().toString(), currentChar.toString())).forEach(e -> {
+                    decodedOutput.append(e.getKey());
+                    currentChar.delete(0, currentChar.length());
+                });
+            }
+        }
+        return decodedOutput;
     }
 
     public StringBuilder generateEncodedOutput() throws Exception {
