@@ -90,16 +90,16 @@ public class Logic {
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
     }
 
-    public StringBuilder decodeEncodedOutput(StringBuilder output){
-        StringBuilder currentChar = new StringBuilder();
-        StringBuilder decodedOutput = new StringBuilder();
-        int currPosition = 0;
+    public StringBuilder decodeEncodedOutput(StringBuilder endodedOutput){
+        StringBuilder currentChar = new StringBuilder(); // holds binary representation of first retrieved char
+        StringBuilder decodedOutput = new StringBuilder(); // used to return decoded output
 
-        while (output.length() > 0){
-            currentChar.append(output.charAt(currPosition));
-            output.deleteCharAt(0);
+        while (endodedOutput.length() > 0){
+            currentChar.append(endodedOutput.charAt(0));
+            endodedOutput.deleteCharAt(0);
+            // when currentChar binary representation matched with values in HashMap -> find and add the key of this value
             if (getHuffmanCodes().containsValue(currentChar.toString())){
-                getHuffmanCodes().entrySet().stream().filter(e -> Objects.equals(e.getValue().toString(), currentChar.toString())).forEach(e -> {
+                getHuffmanCodes().entrySet().stream().filter(e -> Objects.equals(e.getValue(), currentChar.toString())).forEach(e -> {
                     decodedOutput.append(e.getKey());
                     currentChar.delete(0, currentChar.length());
                 });
