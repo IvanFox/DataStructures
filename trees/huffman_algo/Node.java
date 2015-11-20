@@ -14,7 +14,7 @@ public class Node implements Comparable<Node>{
     private Node leftChild;
     private Node rightChild;
 
-
+    // constructor for internal node
     public Node(Node one, Node two) {
         this.leftChild = one;
         this.rightChild = two;
@@ -30,9 +30,6 @@ public class Node implements Comparable<Node>{
     public Character getCharacter() {
         return character;
     }
-
-
-
 
     public int getOccurrence() {
         return occurrence;
