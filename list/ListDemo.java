@@ -1,4 +1,7 @@
 package dataStructures.list;
+
+import java.util.Objects;
+
 /**
  * Created by ivan on 24/09/15.
 */
@@ -13,6 +16,7 @@ public class ListDemo {
         MyList<Integer> list = new MyList<>();
 
         list.add(3);
+        list.add(0,4);
         list.add(8);
         list.add(11);
         list.add(54);
@@ -22,28 +26,20 @@ public class ListDemo {
         list.add(5);
         list.add(7);
 
-
         list.printElements();
-
-
+        list.set(0,5);
+        System.out.println();
+        list.printElements();
 
         System.out.println(list.indexOf(7));
         System.out.println();
 
-        int i = 0;
-        while (i < list.getSize()){
-            if (isOdd(list.get(i))){
-                list.remove(i);
-            }
-            else{
-                i++;
-            }
-        }
-
-        System.out.println();
-        list.printElements();
-
-
+        String s = "hello";
+        String s1 = "hello";
+        System.out.println(Objects.equals(s, s1));
+//
+//        System.out.println();
+//        list.printElements();
     }
 
 }
