@@ -136,7 +136,7 @@ public class BinaryTree {
             System.out.println(root.getValue());
             return;
         }
-        findMax(root.getLeftChild());
+        findMin(root.getLeftChild());
     }
 
 

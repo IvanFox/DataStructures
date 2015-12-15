@@ -30,6 +30,5 @@ public class BinaryTreeDemo {
         System.out.println("-----------------------------");
         avlTree.findMin(root);
 
-
     }
 }
