@@ -3,6 +3,7 @@ package dataStructures.trees.huffman_algo;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -29,7 +30,7 @@ public class Logic {
         initClassStructure();
     }
 
-     private void readFile() throws Exception {
+     private void readFile() {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int ch, value;
             while ((ch = bufferedReader.read()) != -1) {
@@ -42,6 +43,9 @@ public class Logic {
                     hashMap.put((char)ch, ++value);
                 }
             }
+        }
+        catch (IOException e){
+
         }
     }
 

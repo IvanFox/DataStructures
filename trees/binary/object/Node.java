@@ -1,11 +1,11 @@
-package dataStructures.trees.binary;
+package dataStructures.trees.binary.object;
 
 /**
  * Created by IvanLis on 08/11/15.
  * Student No: c00185055
  * All rights reserved
  */
-public class Node <T>  implements Comparable<Node>{
+public class Node <T> implements Comparable<T>{
 
     private T data;
     private Node parent;
@@ -78,7 +78,7 @@ public class Node <T>  implements Comparable<Node>{
     }
 
     @Override
-    public int compareTo(Node o) {
-        return this.getData() != o.getData() ? 0 : 1;
+    public int compareTo(T o) {
+        return this.getData().equals(o) ? 0 : 1;
     }
 }
