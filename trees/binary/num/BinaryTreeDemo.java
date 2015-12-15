@@ -20,8 +20,16 @@ public class BinaryTreeDemo {
 
         System.out.println("Pre Order");
         avlTree.preOrder(root);
+
         System.out.println("\nIn Order");
         avlTree.inOrder(root);
+
+        System.out.println("-----------------------------");
+        avlTree.findMax(root);
+
+        System.out.println("-----------------------------");
+        avlTree.findMin(root);
+
 
     }
 }

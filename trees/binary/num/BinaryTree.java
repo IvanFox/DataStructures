@@ -123,6 +123,22 @@ public class BinaryTree {
         inOrder(root.getRightChild());
     }
 
+    public void findMax(Node root){
+        if (root.getRightChild() == null) {
+            System.out.println(root.getValue());
+            return;
+        }
+        findMax(root.getRightChild());
+    }
+
+    public void findMin(Node root) {
+        if (root.getLeftChild() == null) {
+            System.out.println(root.getValue());
+            return;
+        }
+        findMax(root.getLeftChild());
+    }
+
 
 
 }
