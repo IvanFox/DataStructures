@@ -23,6 +23,5 @@ public class BinaryTreeDemo {
         System.out.println("\nIn Order");
         avlTree.inOrder(root);
 
-
     }
 }

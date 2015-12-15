@@ -82,4 +82,5 @@ public class Node {
     public boolean isLeaf() {
         return !(hasLeft() && hasRight());
     }
+
 }
