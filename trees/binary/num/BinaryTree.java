@@ -61,7 +61,18 @@ public class BinaryTree {
         return newNode;
     }
 
-    public int max(int num1, int num2){
+    private Node leftRightRotation(Node node) {
+        node.setLeftChild(rotateLeft(node.getLeftChild()));
+        return rotateRight(node);
+    }
+
+    private Node rightLeftRotation(Node node) {
+        node.setRightChild(rotateRight(node.getRightChild()));
+        return rotateLeft(node);
+    }
+
+
+    private int max(int num1, int num2){
         return (num1 > num2 ? num1 : num2);
     }
 
@@ -85,21 +96,21 @@ public class BinaryTree {
                 return rotateRight(node);
             }
             // right right
-            if (balanceVal < -1 && value > node.getLeftChild().getValue()) {
+            if (balanceVal < -1 && value > node.getRightChild().getValue()) {
                 return rotateLeft(node);
             }
 
             // left right
 
             if (balanceVal > 1 && value > node.getLeftChild().getValue()) {
-                node.setLeftChild(rotateLeft(node.getLeftChild()));
-                return rotateRight(node);
+                System.out.println("Left right rotation");
+                return leftRightRotation(node);
             }
 
             // right left
-            if (balanceVal < -1 && value < node.getLeftChild().getValue()) {
-                node.setRightChild(rotateRight(node.getRightChild()));
-                return rotateLeft(node);
+            if (balanceVal < -1 && value < node.getRightChild().getValue()) {
+                System.out.println("Right Left rotation");
+                rightLeftRotation(node);
             }
             return node;
         }
@@ -137,6 +148,23 @@ public class BinaryTree {
             return;
         }
         findMin(root.getLeftChild());
+    }
+
+    public void findMinMax(Node root) {
+//        System.out.print("Min: "); findMin(root);
+//        System.out.print("Max: "); findMax(root);
+        Node current = root;
+
+        while(current.getLeftChild() != null) {
+            current = current.getLeftChild();
+        }
+        System.out.println(current.getValue());
+
+        current = root;
+        while(current.getRightChild() != null) {
+            current = current.getRightChild();
+        }
+        System.out.println(current.getValue());
     }
 
 
