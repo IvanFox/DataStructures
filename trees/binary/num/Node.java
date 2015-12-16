@@ -11,12 +11,11 @@ public class Node {
 
     private Node leftChild;
     private Node rightChild;
-    private Node parent;
     private Integer value;
     private Integer height;
 
     public Node(Integer value) {
-        this.value = value;
+        setValue(value);
         initNode();
     }
 
@@ -53,14 +52,6 @@ public class Node {
 
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    public void setParent(Node parent) {
-        this.parent = parent;
     }
 
     public Integer getValue() {
