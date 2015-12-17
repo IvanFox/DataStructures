@@ -10,32 +10,18 @@ package dataStructures.trees.binary.num;
 public class BinaryTreeDemo {
 
     public static void main(String[] args) {
-        Node root = new Node(5);
-
+        Node root = new Node(13);
         BinaryTree avlTree = new BinaryTree(root);
 
-        root = avlTree.addNode(root, 4);
-        root = avlTree.addNode(root, 3);
-        root = avlTree.addNode(root, 2);
-        root = avlTree.addNode(root, 1);
-        root = avlTree.addNode(root, 6);
-        root = avlTree.addNode(root, 8);
-        root = avlTree.addNode(root, 0);
-        root = avlTree.addNode(root, 5);
-        root = avlTree.addNode(root, 9);
-        root = avlTree.addNode(root, 15);
-        root = avlTree.addNode(root, 45);
-        root = avlTree.addNode(root, 10);
-        root = avlTree.addNode(root, 34);
-        root = avlTree.addNode(root, 40);
-        root = avlTree.addNode(root, 45);
-        root = avlTree.addNode(root, 50);
-        root = avlTree.addNode(root, 55);
-        root = avlTree.addNode(root, 55);
-        root = avlTree.addNode(root, 65);
-        root = avlTree.addNode(root, 75);
-        root = avlTree.addNode(root, 85);
-        root = avlTree.addNode(root, 95);
+        root = avlTree.addNode(root, 17);
+//        root = avlTree.addNode(root, 5);
+//        root = avlTree.addNode(root, 10);
+//        root = avlTree.addNode(root, 4);
+//        root = avlTree.addNode(root, 6);
+//        root = avlTree.addNode(root, 8);
+//        root = avlTree.addNode(root, 7);
+        root = avlTree.addNode(root, 18);
+
 
 
         System.out.println("Pre Order");
@@ -45,7 +31,7 @@ public class BinaryTreeDemo {
         avlTree.inOrder(root);
 
         System.out.println("Root value: " + root.getValue());
-
+        System.out.println(avlTree.isElementExist(root, 8));
 
 //        avlTree.findMinMax(root);
     }
