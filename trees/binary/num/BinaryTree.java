@@ -16,7 +16,7 @@ public class BinaryTree {
         initBinaryTree(root);
     }
 
-    private void initBinaryTree (Node root) {
+    private void initBinaryTree(Node root) {
         this.root = root;
         root.setHeight(1);
     }
@@ -25,38 +25,33 @@ public class BinaryTree {
     private int height(Node node) {
         if (node == null) {
             return 0;
-        }
-        else
+        } else
             return node.getHeight();
     }
 
     private int balance(Node node) {
         if (node == null) {
             return 0;
-        }
-        else return (height(node.getLeftChild()) - height(node.getRightChild()));
+        } else return (height(node.getLeftChild()) - height(node.getRightChild()));
     }
 
     private Node rotateRight(Node node) {
-        System.out.println("Rotating right");
         Node newNode = node.getLeftChild();
         Node temp = newNode.getRightChild();
         newNode.setRightChild(node);
         node.setLeftChild(temp);
 
-        node.setHeight(max(height(node.getLeftChild()), height(node.getRightChild())) + 1 );
+        node.setHeight(max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
         newNode.setHeight(max(height(newNode.getLeftChild()), height(node.getRightChild())) + 1);
         return newNode;
     }
 
     private Node rotateLeft(Node node) {
-        System.out.println("Rotating left");
         Node newNode = node.getRightChild();
         Node temp = newNode.getLeftChild();
         newNode.setLeftChild(node);
         node.setRightChild(temp);
-
-        node.setHeight(max(height(node.getLeftChild()), height(node.getRightChild())) + 1 );
+        node.setHeight(max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
         newNode.setHeight(max(height(newNode.getLeftChild()), height(node.getRightChild())) + 1);
         return newNode;
     }
@@ -72,19 +67,17 @@ public class BinaryTree {
     }
 
 
-    private int max(int num1, int num2){
+    private int max(int num1, int num2) {
         return (num1 > num2 ? num1 : num2);
     }
 
     public Node addNode(Node node, Integer value) {
         if (node == null) {
             return new Node(value);
-        }
-        else {
+        } else {
             if (node.getValue() > value) {
                 node.setLeftChild(addNode(node.getLeftChild(), value));
-            }
-            else
+            } else
                 node.setRightChild(addNode(node.getRightChild(), value));
 
             node.setHeight(max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
@@ -93,10 +86,12 @@ public class BinaryTree {
 
             // left left rotation
             if (balanceVal > 1 && value < node.getLeftChild().getValue()) {
+                System.out.println("Right Rotation");
                 return rotateRight(node);
             }
             // right right
             if (balanceVal < -1 && value > node.getRightChild().getValue()) {
+                System.out.println("Left Rotation");
                 return rotateLeft(node);
             }
 
@@ -125,8 +120,8 @@ public class BinaryTree {
         }
     }
 
-    public void inOrder(Node root){
-        if (root == null){
+    public void inOrder(Node root) {
+        if (root == null) {
             return;
         }
         inOrder(root.getLeftChild());
@@ -134,7 +129,7 @@ public class BinaryTree {
         inOrder(root.getRightChild());
     }
 
-    public void findMax(Node root){
+    public void findMax(Node root) {
         if (root.getRightChild() == null) {
             System.out.println(root.getValue());
             return;
@@ -151,22 +146,36 @@ public class BinaryTree {
     }
 
     public void findMinMax(Node root) {
-//        System.out.print("Min: "); findMin(root);
-//        System.out.print("Max: "); findMax(root);
+        System.out.print("Min: ");
+        findMin(root);
+        System.out.print("Max: ");
+        findMax(root);
         Node current = root;
 
-        while(current.getLeftChild() != null) {
-            current = current.getLeftChild();
-        }
-        System.out.println(current.getValue());
-
-        current = root;
-        while(current.getRightChild() != null) {
-            current = current.getRightChild();
-        }
-        System.out.println(current.getValue());
+//        while(current.getLeftChild() != null) {
+//            current = current.getLeftChild();
+//        }
+//        System.out.println(current.getValue());
+//
+//        current = root;
+//        while(current.getRightChild() != null) {
+//            current = current.getRightChild();
+//        }
+//        System.out.println(current.getValue());
     }
 
-
-
+    public boolean isElementExist(Node root, Integer value) {
+        Node current = root;
+        while (current != null) {
+            if (current.getValue().equals(value)){
+                return true;
+            }
+            else if (current.getValue() > value) {
+                current = current.getLeftChild();
+            }
+            else
+                current = current.getRightChild();
+        }
+        return false;
+    }
 }
