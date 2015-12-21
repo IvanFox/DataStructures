@@ -7,75 +7,67 @@ package dataStructures.queue;
  * <p>
  * labs
  */
-public class DoubleEndedQueue {
+public class DoubleEndedQueue<T> {
 
     private int size;
     private int tail;
     private int head;
-    private int arr[];
+    private T arr[];
 
     public DoubleEndedQueue(int size) {
         this.tail = 0;
         this.head = 0;
         this.size = size;
-        this.arr = new int[size];
+        this.arr = (T[]) new Object[size];
     }
 
     public boolean isEmpty() {
         return tail == head;
     }
 
-    public boolean isFull() {
-        return (head + tail) % size == 1;
-    }
 
-    private static int unsignValue(int num) {
-        return num < 0 ? num * -1 : num;
-    }
-
-    public void pushFront(int num) {
+    public void pushFront(T num) {
         if (((head - 1 + size) % size) != tail) {
             head = (head - 1 + size) % size;
             arr[head] = num;
-        }
-        else {
+        } else {
             arr = increaseSize();
             pushFront(num);
         }
 
     }
 
-    public void pushBack(int num) {
-        if ((tail+1) % size == head) {
+    public void pushBack(T num) {
+        if ((tail + 1) % size == head) {
             arr = increaseSize();
             pushBack(num);
-        }
-        else {
+        } else {
             arr[tail] = num;
             tail = ++tail % size;
         }
     }
 
-    public int popFront() {
+    public T popFront() {
         if (!isEmpty()) {
-            int returnValue = arr[head];
+            T returnValue = arr[head];
             head = ++head % size;
             return returnValue;
         }
-        return -1;
+        return null;
     }
 
-    public int popBack() {
+    public T popBack() {
         if (!isEmpty()) {
-            return arr[--tail];
+            tail = (--tail + size) % size;
+            return arr[tail];
         }
-        return -1;
+        return null;
     }
 
 
-    private int[] increaseSize() {
+    private T[] increaseSize() {
         size *= 2;
-        int newArr[] = new int[size];
+        T newArr[] = (T[]) new Object[size];
         int index = 0;
         while (head != tail) {
             newArr[index] = arr[head];
@@ -85,31 +77,5 @@ public class DoubleEndedQueue {
         head = 0;
         tail = index;
         return newArr;
-    }
-
-    public static void main(String[] args) {
-        DoubleEndedQueue dec = new DoubleEndedQueue(5);
-        dec.pushBack(1);
-        dec.pushBack(2);
-        dec.pushBack(3);
-        System.out.println(dec.popFront());
-        System.out.println(dec.popFront());
-        System.out.println(dec.popFront());
-        dec.pushBack(4);
-        dec.pushFront(5);
-        dec.pushFront(6);
-        dec.pushFront(7);
-        dec.pushFront(8);
-//        System.out.println(dec.popBack());
-//        dec.printElements();
-//        System.out.println(dec.popFront());
-//        System.out.println(dec.popFront());
-//        System.out.println(dec.popFront());
-//        System.out.println(dec.popFront());
-//        System.out.println(dec.popFront());
-//        System.out.println(dec.popFront());
-
-
-
     }
 }
