@@ -23,7 +23,6 @@ public class BinaryTreeDemo {
         root = avlTree.addNode(root, 18);
 
 
-
         System.out.println("Pre Order");
         avlTree.preOrder(root);
 

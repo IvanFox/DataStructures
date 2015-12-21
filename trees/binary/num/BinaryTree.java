@@ -150,7 +150,6 @@ public class BinaryTree {
         findMin(root);
         System.out.print("Max: ");
         findMax(root);
-        Node current = root;
 
 //        while(current.getLeftChild() != null) {
 //            current = current.getLeftChild();
@@ -167,15 +166,14 @@ public class BinaryTree {
     public boolean isElementExist(Node root, Integer value) {
         Node current = root;
         while (current != null) {
-            if (current.getValue().equals(value)){
+            if (current.getValue().equals(value)) {
                 return true;
-            }
-            else if (current.getValue() > value) {
+            } else if (current.getValue() > value) {
                 current = current.getLeftChild();
-            }
-            else
+            } else
                 current = current.getRightChild();
         }
         return false;
     }
 }
+
