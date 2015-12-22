@@ -116,7 +116,7 @@ public abstract class Graph {
     public List<Integer> degreeSequence() {
         List<Integer> degree = new ArrayList<>();
         for (int i = 0; i < getNumVertices(); i++) {
-            degree.add(getNeighbors(i).size());
+            degree.add(getNeighbors(i).size() + getInNeighbors(i).size());
         }
         degree = degree.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         return degree;
