@@ -20,9 +20,7 @@ public class GraphAdjMatrix extends Graph {
             int[][] newAdjMatrix = new int[v*2][v*2];
 
             for (int i = 0; i < adjMatrix.length; i++) {
-                for (int j = 0; j < adjMatrix.length; j++) {
-                    newAdjMatrix[i][j] = adjMatrix[i][j];
-                }
+                System.arraycopy(adjMatrix[i], 0, newAdjMatrix[i], 0, adjMatrix.length);
             }
             adjMatrix = newAdjMatrix;
         }
