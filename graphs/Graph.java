@@ -10,17 +10,17 @@ import java.util.List;
  * labs
  */
 public abstract class Graph {
-    private int numVerticies;
+    private int numVertices;
     private int numEdges;
 
 
     public Graph() {
         this.numEdges = 0;
-        this.numVerticies = 0;
+        this.numVertices = 0;
     }
 
-    public int getNumVerticies() {
-        return numVerticies;
+    public int getNumVertices() {
+        return numVertices;
     }
 
     public int getNumEdges() {
@@ -29,17 +29,17 @@ public abstract class Graph {
 
     public void addVertex() {
         implementAddVertex();
-        numVerticies++;
+        numVertices++;
     }
 
-    public void addEdge() {
-        implementAddEdge();
+    public void addEdge(int v, int w) {
+        implementAddEdge(v, w);
         numEdges++;
     }
 
     public abstract void implementAddVertex();
 
-    public abstract void implementAddEdge();
+    public abstract void implementAddEdge(int v, int w);
 
     public abstract List<Integer> getNeighbors(int v);
 
