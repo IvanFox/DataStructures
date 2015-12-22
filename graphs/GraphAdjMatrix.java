@@ -12,10 +12,10 @@ import java.util.List;
 public class GraphAdjMatrix extends Graph {
 
     private int[][] adjMatrix;
-    
+
     @Override
     public void implementAddVertex() {
-        int v = getNumVerticies();
+        int v = getNumVertices();
         if (v >= adjMatrix.length) {
             int[][] newAdjMatrix = new int[v*2][v*2];
 
@@ -31,7 +31,6 @@ public class GraphAdjMatrix extends Graph {
         }
     }
 
-    @Override
     public void implementAddEdge(int v, int w) {
         adjMatrix[v][w] = 1;
     }
