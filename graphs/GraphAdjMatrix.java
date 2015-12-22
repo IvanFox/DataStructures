@@ -118,8 +118,4 @@ public class GraphAdjMatrix extends Graph {
         }
         return s;
     }
-
-
-}
-
 }
