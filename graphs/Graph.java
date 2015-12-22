@@ -27,7 +27,6 @@ public abstract class Graph {
         return numEdges;
     }
 
-
     public void addVertex() {
         implementAddVertex();
         numVerticies++;
