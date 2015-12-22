@@ -15,7 +15,9 @@ Java implementation of DataStructures <br>
 </li>
 <b><li>Stack</li><br></b>
 <b><li>List</li><br></b>
-<b><li>Trees</li></b>
+<b><li>Trees</b>
 <ul>Binary</ul>
 <ul>Huffman Algorithm</ul>
 <ul>AVL Tree</ul>
+</li>
+<b><li>Graphs</li></b>
