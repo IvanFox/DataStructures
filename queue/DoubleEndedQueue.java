@@ -9,16 +9,20 @@ package dataStructures.queue;
  */
 public class DoubleEndedQueue<T> {
 
-    private int size;
+    private int size = 15; // default size
     private int tail;
     private int head;
     private T arr[];
+
 
     public DoubleEndedQueue(int size) {
         this.tail = 0;
         this.head = 0;
         this.size = size;
         this.arr = (T[]) new Object[size];
+    }
+
+    public DoubleEndedQueue() {
     }
 
     public boolean isEmpty() {
