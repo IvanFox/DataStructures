@@ -247,7 +247,9 @@ public abstract class Graph {
 		System.out.println("****");
 		System.out.println("Roads / intersections:");
 		GraphAdjList graphFromFile = new GraphAdjList();
+		GraphAdjMatrix graphFromFile1 = new GraphAdjMatrix();
 		GraphLoader.loadRoadMap("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/testdata/simpletest.map", graphFromFile);
+		GraphLoader.loadRoadMap("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/testdata/simpletest.map", graphFromFile1);
 		System.out.println(graphFromFile);
 
 		System.out.println("Observe all degrees are <= 12.");
@@ -267,6 +269,7 @@ public abstract class Graph {
 		//For testing Part 2 functionality
 		// Test your distance2 code here.#
         System.out.println(graphFromFile.getDistance2(3));
+        System.out.println(graphFromFile1.getDistance2(3));
 		System.out.println("Testing distance-two methods on sample graphs...");
 		System.out.println("Goal: implement method using two approaches.");
 
