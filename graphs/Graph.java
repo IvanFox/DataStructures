@@ -1,9 +1,8 @@
-package basicgraph;
+package dataStructures.graphs;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import util.GraphLoader;
 
 /** An abstract class that implements a directed graph. 
  * The graph may have self-loops, parallel edges. 
@@ -124,7 +123,7 @@ public abstract class Graph {
         for (int i = 0; i < getNumVertices(); i++) {
             degree.add(getNeighbors(i).size() + getInNeighbors(i).size());
         }
-        return degree.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        return degree.stream().sorted(Comparator.naturalOrder()).collect(Collectors.toList());
     }
 
     /**
@@ -231,49 +230,4 @@ public abstract class Graph {
         System.out.println("ERROR: No vertex with this label");
         return -1;
     }
-
-
-
-	public static void main (String[] args) {
-//		GraphLoader.createIntersectionsFile("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/maps/portlaoise.map", "/Users/IvanLis/IdeaProjects/UCSDGraphs/data/intersections/portlaoise.intersections");
-
-
-		// For testing of Part 1 functionality
-		// Add your tests here to make sure your degreeSequence method is returning
-		// the correct list, after examining the graphs.
-		System.out.println("Loading graphs based on real data...");
-		System.out.println("Goal: use degree sequence to analyse graphs.");
-
-		System.out.println("****");
-		System.out.println("Roads / intersections:");
-		GraphAdjList graphFromFile = new GraphAdjList();
-		GraphAdjMatrix graphFromFile1 = new GraphAdjMatrix();
-		GraphLoader.loadRoadMap("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/testdata/simpletest.map", graphFromFile);
-		GraphLoader.loadRoadMap("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/testdata/simpletest.map", graphFromFile1);
-		System.out.println(graphFromFile);
-
-		System.out.println("Observe all degrees are <= 12.");
-		System.out.println("****");
-
-		System.out.println("\n****");
-
-		// You can test with real road data here.  Use the data files in data/maps
-
-		System.out.println("Flight data:");
-		GraphAdjList airportGraph = new GraphAdjList();
-		GraphLoader.loadRoutes("/Users/IvanLis/IdeaProjects/UCSDGraphs/data/airports/routesUA.dat", airportGraph);
-		System.out.println(airportGraph);
-		System.out.println("Observe most degrees are small (1-30), eight are over 100.");
-		System.out.println("****");
-		System.out.println("\n****");
-		//For testing Part 2 functionality
-		// Test your distance2 code here.#
-        System.out.println(graphFromFile.getDistance2(3));
-        System.out.println(graphFromFile1.getDistance2(3));
-		System.out.println("Testing distance-two methods on sample graphs...");
-		System.out.println("Goal: implement method using two approaches.");
-
-
-
-	}
 }

@@ -1,4 +1,4 @@
-package basicgraph;
+package dataStructures.graphs;
 
 import java.util.ArrayList;
 import java.util.HashSet;
