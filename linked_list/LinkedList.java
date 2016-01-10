@@ -1,10 +1,17 @@
 package dataStructures.linked_list;
 
 
+import java.util.Iterator;
+import java.util.ListIterator;
+
 /**
- * Created by IvanLis on 13/10/15.
+ * @author IvanLis
+ * @version 1.0
+ * @since 13/10/15.
+ *
+ * labs
  */
-public class LinkedList<T> {
+public class LinkedList<T> implements Iterable<T> {
     public Link firstLink;
 
 
@@ -12,14 +19,17 @@ public class LinkedList<T> {
         return firstLink == null;
     }
 
-    public void insertNewLink(T object){
+    public void  insertNewLink(T object){
         if (firstLink == null){
             firstLink = new Link(object);
         }
         else{
-            Link newLink = new Link(object);
-            newLink.next = firstLink;
-            firstLink = newLink;
+            Link<T> curr = firstLink;
+            while (curr.getNext() != null){
+                curr = curr.getNext();
+            }
+            curr.setNext(new Link<T>(object));
+
         }
     }
 
@@ -27,24 +37,13 @@ public class LinkedList<T> {
         Link deletedLink = firstLink;
 
         if(!isEmpty()){
-            firstLink = firstLink.next;
+            firstLink = firstLink.getNext();
         }
         else
             System.out.println("Empty link list");
 
         return deletedLink;
     }
-
-    public void display(){
-        Link theLink = firstLink;
-        System.out.println(theLink.toString());
-
-        while(theLink.next != null){
-            System.out.println(theLink.next.toString());
-            theLink = theLink.next;
-        }
-    }
-
 
     public Link find(T object){
 
@@ -54,12 +53,12 @@ public class LinkedList<T> {
             if (theLink.getLink().toString().equals(object.toString())){
                 return theLink;
             }
-            while (!theLink.getLink().toString().equals(object.toString()) && theLink.next != null ){
-                if (theLink.next.getLink().toString().equals(object.toString())){
-                    return theLink.next;
+            while (!theLink.getLink().toString().equals(object.toString()) && theLink.getNext() != null ){
+                if (theLink.getNext().getLink().toString().equals(object.toString())){
+                    return theLink.getNext();
                 }
                 else{
-                    theLink = theLink.next;
+                    theLink = theLink.getNext();
                 }
             }
 
@@ -78,12 +77,12 @@ public class LinkedList<T> {
 
         while (currentLink != null){
             if (currentLink.getLink().toString().equals(object.toString())){
-                previousLink.next = currentLink.next;
+                previousLink.setNext(currentLink.getNext());
                 return currentLink;
             }
 
             previousLink = currentLink;
-            currentLink = currentLink.next;
+            currentLink = currentLink.getNext();
 
 
         }
@@ -91,4 +90,24 @@ public class LinkedList<T> {
 
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    public class LinkedListIterator implements Iterator<T> {
+        Link<T> curr = firstLink;
+
+        @Override
+        public boolean hasNext() {
+            return curr != null;
+        }
+
+        @Override
+        public T next() {
+            Link<T> element = curr;
+            curr = curr.getNext();
+            return element.getLink();
+        }
+    }
 }

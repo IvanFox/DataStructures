@@ -1,19 +1,30 @@
 package dataStructures.linked_list;
 
 /**
- * Created by IvanLis on 13/10/15.
+ * @author IvanLis
+ * @version 1.0
+ * @since 13/10/15.
+ * <p>
+ * labs
  */
-public class Link <T> {
+public class Link<T> {
 
-    public T link;
+    private T link;
 
-    public Link <T> next;
+    private Link<T> next;
 
 
-
-    public Link (T link) {
+    public Link(T link) {
         this.link = link;
 
+    }
+
+    public Link<T> getNext() {
+        return next;
+    }
+
+    public void setNext(Link<T> next) {
+        this.next = next;
     }
 
     public void setLink(T link) {

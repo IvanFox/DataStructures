@@ -1,7 +1,11 @@
 package dataStructures.linked_list;
 
 /**
- * Created by IvanLis on 13/10/15.
+ * @author IvanLis
+ * @version 1.0
+ * @since 13/10/15.
+ *
+ * labs
  */
 public class LinkedListDemo {
 
@@ -20,9 +24,12 @@ public class LinkedListDemo {
 //        System.out.println("\n" + linkedList.find(new Car("Fiat", "Diesel", 1.8)));
 //        System.out.println();
 
-        System.out.println(linkedList.removeLink(new Car("Opel", "Diesel", 1.8)));
-        System.out.println();
-        linkedList.display();
+//        System.out.println(linkedList.removeLink(new Car("Opel", "Diesel", 1.8)));
+
+        for (Car car : linkedList) {
+            System.out.println(car);
+        }
 
     }
+
 }
