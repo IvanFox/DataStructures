@@ -21,24 +21,23 @@ public class Queue {
         tail = null;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return head == null;
     }
 
-    public void enqueue(Link link){
-        if (!isEmpty()){
+    public void enqueue(Link link) {
+        if (!isEmpty()) {
             tail.setNext(link);
             tail = link;
             tail.setNext(null);
-        }
-        else{
+        } else {
             head = link;
             tail = link;
         }
     }
 
-    public Link dequeue(){
-        if (!isEmpty()){
+    public Link dequeue() {
+        if (!isEmpty()) {
             Link temp = head;
             head = head.getNext();
             return temp;
