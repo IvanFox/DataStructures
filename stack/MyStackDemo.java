@@ -10,13 +10,11 @@ package dataStructures.stack;
 public class MyStackDemo {
 
     public static void main(String[] args) {
-        MyStack<Integer> stack = new MyStack();
+        MyStack<Integer> stack = new MyStack<>();
         stack.push(4);
-        stack.push(4);
-        stack.push(4);
-        stack.push(4);
-        System.out.println(stack.pop());
-        System.out.println(stack.getSize());
+        stack.push(3);
+        stack.push(2);
+        stack.push(1);
 
         for (Integer num : stack) {
             System.out.println(num);

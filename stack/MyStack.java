@@ -4,7 +4,11 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Created by ivan on 27/09/15.
+ * @author ivan
+ * @version 1.0
+ * @since 27/09/15.
+ * <p>
+ * labs
  */
 public class MyStack<T> implements Iterable<T> {
     T[] items;
@@ -46,34 +50,25 @@ public class MyStack<T> implements Iterable<T> {
                 items[i] = temp[i];
                 i++;
             }
-            temp = null;
         }
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new StackIterator<>(items, this);
+        return new StackIterator<>();
     }
 
-    public static class StackIterator<T> implements Iterator<T> {
-        private int index = 0;
-        private final T[] items;
-        private final MyStack stack;
-
-        public StackIterator(T[] items, MyStack stack) {
-            this.items = items;
-            this.stack = stack;
-        }
+    public class StackIterator<T> implements Iterator<T> {
 
         @Override
         public boolean hasNext() {
-            return stack.getSize() > index;
+            return !MyStack.this.isEmpty();
         }
 
         @Override
         public T next() {
             if (hasNext())
-                return items[index++];
+                return (T) MyStack.this.pop();
             else
                 throw new NoSuchElementException("No element found");
         }
