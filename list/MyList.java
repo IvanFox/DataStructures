@@ -1,10 +1,13 @@
 package dataStructures.list;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 /**
  * Created by ivan on 24/09/15.
  * Implementation of a List using generic type of a class
  */
-public class MyList <T> {
+public class MyList <T> implements Iterable<T>{
 
     private T items[];
     private int count;
@@ -111,5 +114,10 @@ public class MyList <T> {
         for (int i = 0; i < count; i++) {
             System.out.println("[ " + items[i].toString() + " ]");
         }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return Arrays.asList(items).iterator();
     }
 }
