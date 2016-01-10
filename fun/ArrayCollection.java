@@ -1,5 +1,6 @@
 package dataStructures.fun;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -54,7 +55,14 @@ public class ArrayCollection<T> implements Collection<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return (T1[]) this.toArray();
+        if (a.length < size())
+            return (T1[])Arrays.copyOf(items, size(), a.getClass());
+
+        System.arraycopy(items, 0, a, 0, size());
+        if (a.length > size()) {
+            a[size] = null;
+        }
+        return a;
     }
 
     @Override
