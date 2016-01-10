@@ -1,6 +1,7 @@
 package dataStructures.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by ivan on 24/09/15.
@@ -120,7 +121,10 @@ public class MyList<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            return MyList.this.items[index++];
+            if (hasNext())
+                return MyList.this.items[index++];
+            else
+                throw new NoSuchElementException("No element found");
         }
     }
 }

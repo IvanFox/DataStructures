@@ -1,6 +1,7 @@
 package dataStructures.stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by ivan on 27/09/15.
@@ -71,7 +72,10 @@ public class MyStack<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            return items[index++];
+            if (hasNext())
+                return items[index++];
+            else
+                throw new NoSuchElementException("No element found");
         }
     }
 }
