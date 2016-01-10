@@ -1,7 +1,11 @@
 package dataStructures.stack;
 
 /**
- * Created by IvanLis on 06/10/15.
+ * @author IvanLis
+ * @version 1.0
+ * @since 06/10/15.
+ *
+ * labs
  */
 public class MyStackDemo {
 
@@ -13,6 +17,10 @@ public class MyStackDemo {
         stack.push(4);
         System.out.println(stack.pop());
         System.out.println(stack.getSize());
+
+        for (Integer num : stack) {
+            System.out.println(num);
+        }
 
     }
 

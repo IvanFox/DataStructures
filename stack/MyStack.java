@@ -1,13 +1,11 @@
 package dataStructures.stack;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
  * Created by ivan on 27/09/15.
  */
-public class MyStack<T> implements Iterable<T>{
+public class MyStack<T> implements Iterable<T> {
     T[] items;
     int top;
     final int INITIAL_SIZE = 10;
@@ -53,6 +51,27 @@ public class MyStack<T> implements Iterable<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return Arrays.asList(items).iterator();
+        return new StackIterator<>(items, this);
+    }
+
+    public static class StackIterator<T> implements Iterator<T> {
+        private int index = 0;
+        private final T[] items;
+        private final MyStack stack;
+
+        public StackIterator(T[] items, MyStack stack) {
+            this.items = items;
+            this.stack = stack;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return stack.getSize() > index;
+        }
+
+        @Override
+        public T next() {
+            return items[index++];
+        }
     }
 }
