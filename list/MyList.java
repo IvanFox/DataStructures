@@ -118,6 +118,20 @@ public class MyList <T> implements Iterable<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return Arrays.asList(items).iterator();
+        return new ListIterator();
+    }
+
+    private class ListIterator implements Iterator<T> {
+        private int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return MyList.this.getSize() > index;
+        }
+
+        @Override
+        public T next() {
+            return MyList.this.items[index++];
+        }
     }
 }

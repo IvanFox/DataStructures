@@ -26,17 +26,22 @@ public class ListDemo {
         list.add(5);
         list.add(7);
 
-        list.printElements();
-        list.set(0,5);
-        System.out.println();
-        list.printElements();
 
-        System.out.println(list.indexOf(7));
-        System.out.println();
+        for (Integer num : list) {
+            System.out.println(num);
+        }
 
-        String s = "hello";
-        String s1 = "hello";
-        System.out.println(Objects.equals(s, s1));
+//        list.printElements();
+//        list.set(0,5);
+//        System.out.println();
+//        list.printElements();
+//
+//        System.out.println(list.indexOf(7));
+//        System.out.println();
+//
+//        String s = "hello";
+//        String s1 = "hello";
+//        System.out.println(Objects.equals(s, s1));
 //
 //        System.out.println();
 //        list.printElements();
