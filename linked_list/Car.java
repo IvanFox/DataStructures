@@ -28,8 +28,17 @@ public class Car {
         return engingeSize;
     }
 
+    public void setModel(String model) {
+        this.model = model;
+    }
 
+    public void setEngingeSize(double engingeSize) {
+        this.engingeSize = engingeSize;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {
