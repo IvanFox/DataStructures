@@ -1,4 +1,7 @@
-package dataStructures.queue;
+package dataStructures.dqueue;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author IvanLis
@@ -7,7 +10,7 @@ package dataStructures.queue;
  * <p>
  * labs
  */
-public class DoubleEndedQueue<T> {
+public class DoubleEndedQueue<T> implements Iterable<T> {
 
     private int size = 15; // default size
     private int tail;
@@ -81,5 +84,26 @@ public class DoubleEndedQueue<T> {
         head = 0;
         tail = index;
         return newArr;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new QueueIterator();
+    }
+
+    public class QueueIterator implements Iterator<T> {
+
+        @Override
+        public boolean hasNext() {
+            return !isEmpty();
+        }
+
+        @Override
+        public T next() {
+            if (hasNext())
+                return DoubleEndedQueue.this.popFront();
+            else
+                throw new NoSuchElementException();
+        }
     }
 }
