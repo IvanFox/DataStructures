@@ -7,9 +7,6 @@ import java.util.Objects;
 */
 public class ListDemo {
 
-    public static boolean isOdd(int num){
-        return num % 2 != 0;
-    }
 
 
     public static void main(String[] args) {
@@ -26,6 +23,11 @@ public class ListDemo {
         list.add(5);
         list.add(7);
 
+
+        list.forEach(System.out::println);
+        System.out.println("\n************************\n");
+        list.forEach(list::remove);
+        System.out.println("\n************************\n");
 
         for (Integer num : list) {
             System.out.println(num);
