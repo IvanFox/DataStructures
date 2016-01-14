@@ -157,18 +157,33 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-
+        if (!outOfTheRange(index)) {
+            T element = this.items[index];
+            if (index != size - 1)
+                System.arraycopy(items, index + 1, items, index, size - index - 1);
+            size--;
+            return element;
+        }
         return null;
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (o.equals(this.items[i]))
+                return i;
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        int pos = -1;
+        for (int i = 0; i < size; i++) {
+            if (o.equals(this.items[i]))
+                pos = i;
+        }
+        return pos;
     }
 
     @Override
@@ -183,7 +198,11 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+        List<T> list = new ListImpl<>();
+        for (int i = fromIndex; i < toIndex; i++) {
+            list.add(this.items[i]);
+        }
+        return list;
     }
 
 
