@@ -23,8 +23,8 @@ public class ListImpl<T> implements List<T> {
     }
 
     private boolean outOfTheRange(int index) {
-        if ((index < this.size) && (index > 0)) return true;
-        else throw new IndexOutOfBoundsException();
+        if ((index > this.size) && (index < 0)) throw new IndexOutOfBoundsException();
+        else return false;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return Arrays.asList(this.items).iterator();
+        return new ArrayIterator();
     }
 
     @Override
@@ -86,7 +86,8 @@ public class ListImpl<T> implements List<T> {
     public boolean remove(Object o) {
         for (int i = 0; i < size; i++) {
             if (o.equals(items[i])) {
-                if (i != size - 1) System.arraycopy(items, i + 1, items, i, size - i - 1);
+                if (i != size - 1)
+                    System.arraycopy(items, i + 1, items, i, size - i - 1);
                 size--;
                 return true;
             }
@@ -96,16 +97,22 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for (T item : this.items) {
+            if (!contains(item))
+                return false;
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        c.forEach(this::add);
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
+
         return false;
     }
 
@@ -139,18 +146,18 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public void add(final int index, final T element) {
-        if (size == items.length) increaseSize();
-
-        for (int i = this.size; i > index; i--) {
-            items[i] = items[i - 1];
+        if (!outOfTheRange(index)) {
+            if (size == items.length) increaseSize();
+            if (index != size)
+                System.arraycopy(this.items, index, this.items, index + 1, this.size - index);
+            items[index] = element;
+            size++;
         }
-
-        items[index] = element;
-        size++;
     }
 
     @Override
     public T remove(int index) {
+
         return null;
     }
 
@@ -177,5 +184,24 @@ public class ListImpl<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+
+    // implementing iterator
+    public class ArrayIterator implements Iterator<T> {
+        int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return size > index;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext())
+                return items[index++];
+            else
+                throw new IndexOutOfBoundsException();
+        }
     }
 }
