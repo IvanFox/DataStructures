@@ -1,4 +1,4 @@
-package dataStructures.dqueue;
+package dataStructures.queue;
 
 /**
  * @author IvanLis
@@ -21,9 +21,12 @@ public class DoubleEndedQueueDemo {
         deq.pushBack(8);
         deq.pushFront(9);
 
-
-        for (Integer num : deq) {
-            System.out.println(num);
+        while (true) {
+            Integer curr = deq.popFront();
+            if (curr == null)
+                return;
+            else
+                System.out.println(curr);
         }
 
 

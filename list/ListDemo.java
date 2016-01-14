@@ -1,6 +1,5 @@
 package dataStructures.list;
 
-import java.util.Objects;
 
 /**
  * Created by ivan on 24/09/15.
@@ -26,6 +25,7 @@ public class ListDemo {
 
         list.forEach(System.out::println);
         System.out.println("\n************************\n");
+
         list.forEach(list::remove);
         System.out.println("\n************************\n");
 

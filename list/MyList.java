@@ -53,7 +53,8 @@ public class MyList<T> implements Iterable<T> {
     }
 
     public void add(int index, T el) {
-        increaseSize();
+        if (isFull()) increaseSize();
+
         if (checkRange(index)) {
             for (int i = count; i > index; i--) {
                 items[i] = items[i - 1];
@@ -74,8 +75,10 @@ public class MyList<T> implements Iterable<T> {
     public T remove(int index) {
         if (checkRange(index) && !isEmpty()) {
             T temp = items[index];
-            for (int i = index; i < count; i++) {
-                items[i] = items[i + 1];
+            if (count - 1 != index) {
+                for (int i = index; i < count - 1; i++) {
+                    items[i] = items[i + 1];
+                }
             }
             count--;
             return temp;
@@ -83,6 +86,7 @@ public class MyList<T> implements Iterable<T> {
         System.out.println("index " + index + ": not exist");
         return null;
     }
+
 
     public int indexOf(T el) {
         int sentinel = 0;
@@ -99,11 +103,8 @@ public class MyList<T> implements Iterable<T> {
         T temp[] = items;
         items = (T[]) new Object[temp.length * 2];
 
-        int i = 0;
-        while (temp[i] != null) {
-            items[i] = temp[i];
-            i++;
-        }
+        System.arraycopy(temp, 0, items, 0, count);
+
     }
 
     @Override
