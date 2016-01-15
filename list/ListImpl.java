@@ -188,12 +188,12 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        return null;
+        return new MyListIterator();
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        return null;
+        return new MyListIterator(index);
     }
 
     @Override
@@ -221,6 +221,72 @@ public class ListImpl<T> implements List<T> {
                 return items[index++];
             else
                 throw new IndexOutOfBoundsException();
+        }
+    }
+
+
+    // implementing listIterator
+
+    public class MyListIterator implements ListIterator<T> {
+        int index;
+
+        public MyListIterator(int index) {
+            this.index = index;
+        }
+
+        public MyListIterator() {
+            index = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return size() > index;
+        }
+
+        @Override
+        public T next() {
+            if (hasNext())
+                return items[index--];
+            else
+                throw new IndexOutOfBoundsException();
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return index >= 0;
+        }
+
+        @Override
+        public T previous() {
+            if (hasPrevious())
+                return items[--index];
+            else
+                throw new IndexOutOfBoundsException();
+        }
+
+        @Override
+        public int nextIndex() {
+            return index + 1;
+        }
+
+        @Override
+        public int previousIndex() {
+            return index - 1;
+        }
+
+        @Override
+        public void remove() {
+            ListImpl.this.remove(index);
+        }
+
+        @Override
+        public void set(T t) {
+            ListImpl.this.set(index, t);
+        }
+
+        @Override
+        public void add(T t) {
+            ListImpl.this.add(index, t);
         }
     }
 }
