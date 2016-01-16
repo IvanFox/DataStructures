@@ -14,7 +14,7 @@ Java implementation of DataStructures <br>
 <ul>Double Ended Queue</ul>
 </li>
 <b><li>Stack</li><br></b>
-<b><li>List</li><br></b>
+<b><li>List (ArrayList version, implementing Collection API)</li><br></b>
 <b><li>Trees</b>
 <ul>Binary</ul>
 <ul>Huffman Algorithm</ul>
