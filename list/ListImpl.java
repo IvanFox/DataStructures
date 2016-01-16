@@ -9,6 +9,7 @@ import java.util.*;
  * <p>
  * labs
  */
+// ArrayList implementation
 public class ListImpl<T> implements List<T> {
     private int DEFAULT_SIZE = 10;
     private int index = 0;
@@ -48,11 +49,16 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
+        if (fromIndex > size - 1 ||  toIndex < size) {
+            throw new IndexOutOfBoundsException();
+        }
+
         List<T> list = new ListImpl<>();
         for (int i = fromIndex; i < toIndex; i++) {
             list.add(this.items[i]);
         }
         return list;
+
     }
 
     @Override
@@ -210,32 +216,12 @@ public class ListImpl<T> implements List<T> {
     }
 
 
-
-
-    // implementing iterator
-    private class ArrayIterator implements Iterator<T> {
-        int index = 0;
-
-        @Override
-        public boolean hasNext() {
-            return size > index;
-        }
-
-        @Override
-        public T next() {
-            if (hasNext())
-                return items[index++];
-            else
-                throw new IndexOutOfBoundsException();
-        }
-    }
-
-
     // implementing listIterator
 
     private class MyListIterator implements ListIterator<T> {
 
         private int index;
+
         public MyListIterator() {
             this(0);
         }
@@ -263,7 +249,7 @@ public class ListImpl<T> implements List<T> {
 
         @Override
         public void set(final T element) {
-            if (index -1 == -1) throw new IllegalStateException();
+            if (index - 1 == -1) throw new IllegalStateException();
             ListImpl.this.set(index - 1, element);
         }
 
