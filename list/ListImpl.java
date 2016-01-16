@@ -10,7 +10,8 @@ import java.util.*;
  * labs
  */
 public class ListImpl<T> implements List<T> {
-    int DEFAULT_SIZE = 10;
+    private int DEFAULT_SIZE = 10;
+    private int index = 0;
     int size = 0;
     T items[];
 
@@ -46,8 +47,17 @@ public class ListImpl<T> implements List<T> {
     }
 
     @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        List<T> list = new ListImpl<>();
+        for (int i = fromIndex; i < toIndex; i++) {
+            list.add(this.items[i]);
+        }
+        return list;
+    }
+
+    @Override
     public Iterator<T> iterator() {
-        return new ArrayIterator();
+        return new MyListIterator();
     }
 
     @Override
@@ -97,7 +107,7 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        for (T item : this.items) {
+        for (Object item : c) {
             if (!contains(item))
                 return false;
         }
@@ -112,23 +122,26 @@ public class ListImpl<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-
-        return false;
+        c.forEach(this::remove);
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        c.forEach(this::remove);
+        return true;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        this.stream().filter(item -> !c.contains(item)).forEach(this::remove);
+        return true;
     }
 
     @Override
     public void clear() {
         items = (T[]) new Object[DEFAULT_SIZE];
+        this.size = 0;
     }
 
     @Override
@@ -196,18 +209,11 @@ public class ListImpl<T> implements List<T> {
         return new MyListIterator(index);
     }
 
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        List<T> list = new ListImpl<>();
-        for (int i = fromIndex; i < toIndex; i++) {
-            list.add(this.items[i]);
-        }
-        return list;
-    }
+
 
 
     // implementing iterator
-    public class ArrayIterator implements Iterator<T> {
+    private class ArrayIterator implements Iterator<T> {
         int index = 0;
 
         @Override
@@ -227,66 +233,71 @@ public class ListImpl<T> implements List<T> {
 
     // implementing listIterator
 
-    public class MyListIterator implements ListIterator<T> {
-        int index;
+    private class MyListIterator implements ListIterator<T> {
 
-        public MyListIterator(int index) {
-            this.index = index;
+        private int index;
+        public MyListIterator() {
+            this(0);
         }
 
-        public MyListIterator() {
-            index = 0;
+        public MyListIterator(final int index) {
+            this.index = index;
         }
 
         @Override
         public boolean hasNext() {
-            return size() > index;
+            return ListImpl.this.size() > index;
         }
 
         @Override
         public T next() {
-            if (hasNext())
-                return items[index--];
-            else
-                throw new IndexOutOfBoundsException();
+            if (!hasNext())
+                throw new NoSuchElementException();
+            return ListImpl.this.items[index++];
         }
 
         @Override
-        public boolean hasPrevious() {
-            return index >= 0;
+        public void add(final T element) {
+            ListImpl.this.add(index, element);
         }
 
         @Override
-        public T previous() {
-            if (hasPrevious())
-                return items[--index];
-            else
-                throw new IndexOutOfBoundsException();
-        }
-
-        @Override
-        public int nextIndex() {
-            return index + 1;
+        public void set(final T element) {
+            if (index -1 == -1) throw new IllegalStateException();
+            ListImpl.this.set(index - 1, element);
         }
 
         @Override
         public int previousIndex() {
+            if (index == 0) return -1;
             return index - 1;
         }
 
         @Override
+        public int nextIndex() {
+            return index;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            if (index > 0) return true;
+            return false;
+        }
+
+        @Override
+        public T previous() {
+            if (!hasPrevious())
+                throw new NoSuchElementException();
+            index--;
+            return ListImpl.this.items[index];
+        }
+
+        @Override
         public void remove() {
-            ListImpl.this.remove(index);
+            if (index - 1 == -1)
+                throw new IllegalStateException();
+            ListImpl.this.remove(--index);
         }
 
-        @Override
-        public void set(T t) {
-            ListImpl.this.set(index, t);
-        }
-
-        @Override
-        public void add(T t) {
-            ListImpl.this.add(index, t);
-        }
     }
 }
