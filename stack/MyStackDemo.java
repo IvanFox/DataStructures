@@ -4,7 +4,7 @@ package dataStructures.stack;
  * @author IvanLis
  * @version 1.0
  * @since 06/10/15.
- *
+ * <p>
  * labs
  */
 public class MyStackDemo {

@@ -11,7 +11,7 @@ import java.util.ListIterator;
  *
  * labs
  */
-public class LinkedList<T> implements Iterable<T> {
+public class MyLinkedList<T> implements Iterable<T> {
     public Link firstLink;
 
 

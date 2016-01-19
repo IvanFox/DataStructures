@@ -12,7 +12,7 @@ public class LinkedListDemo {
 
 
     public static void main(String[] args) {
-        LinkedList <Car> linkedList = new LinkedList<>();
+        MyLinkedList<Car> linkedList = new MyLinkedList<>();
         linkedList.insertNewLink(new Car("Volvo", "Diesel", 1.8));
         linkedList.insertNewLink(new Car("BMW", "Diesel", 3.0));
         linkedList.insertNewLink(new Car("Mercedes", "Diesel", 1.8));
