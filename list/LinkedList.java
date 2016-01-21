@@ -1,9 +1,6 @@
 package dataStructures.list;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * @author IvanLis
@@ -26,7 +23,7 @@ public class LinkedList<T> implements List<T> {
         else return false;
     }
 
-    private void deleteFirstElement(){
+    private void deleteFirstElement() {
         first = first.next;
         first.prev = null;
         size--;
@@ -72,9 +69,7 @@ public class LinkedList<T> implements List<T> {
     public boolean add(final T t) {
         if (first == null) {
             first = new Item<>(t, null, null);
-        }
-
-        else {
+        } else {
             Item<T> current = first;
             Item<T> prev = current;
             while (current.getNext() != null) {
@@ -90,7 +85,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean remove(final Object o) {
-        if (first == null){
+        if (first == null) {
             return false;
         }
         // if first element
@@ -101,9 +96,9 @@ public class LinkedList<T> implements List<T> {
 
         Item<T> current = first.getNext();
         while (current != null) {
-            if (current.element.equals(o)){
+            if (current.element.equals(o)) {
                 current.prev.next = current.getNext();
-                                                            // if current is not last one
+                // if current is not last one
                 if (current.getNext() != null)
                     current.getNext().prev = current.getPrev();
                 else
@@ -151,6 +146,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
+        size = 0;
         first = null;
         last = null;
     }
@@ -166,11 +162,10 @@ public class LinkedList<T> implements List<T> {
             currItem = currItem.getNext();
             currPos++;
         }
-        if (currItem == first){
+        if (currItem == first) {
             deleteFirstElement();
             return currItem.element;
-        }
-        else {
+        } else {
             currItem.getPrev().next = currItem.next;
             if (currItem.getNext() != null)
                 currItem.getNext().prev = currItem.getPrev();
@@ -181,12 +176,30 @@ public class LinkedList<T> implements List<T> {
         return currItem.element;
     }
 
-    // BEGIN (write your solution here)
-
-    // END
     @Override
     public List<T> subList(final int start, final int end) {
-        return null;
+        if (start > end) {
+            throw new IllegalArgumentException();
+        }
+        outOfTheRange(start);
+        outOfTheRange(end);
+        List<T> subList = new LinkedList<>();
+
+        int currPos = 0;
+        Item<T> currItem = first;
+
+        while (currPos != start) {
+            currItem = currItem.getNext();
+            currPos++;
+        }
+
+
+        while (currPos != end) {
+            subList.add(currItem.element);
+            currItem = currItem.getNext();
+            currPos++;
+        }
+        return subList;
     }
 
     @Override
@@ -242,24 +255,27 @@ public class LinkedList<T> implements List<T> {
         return currItem.getElement();
     }
 
-    // BEGIN (write your solution here)
-
-    // END
 
     private class ElementsIterator implements ListIterator<T> {
 
-        private Item<T> current;
+        private Item<T> current = first;
 
         private Item<T> last;
+
+
+        int currPos = 0;
 
         public ElementsIterator() {
             this(0);
         }
 
         public ElementsIterator(final int index) {
-            // BEGIN (write your solution here)
-
-            // END
+            outOfTheRange(index);
+            current = first;
+            while (currPos != index) {
+                current = current.getNext();
+                currPos++;
+            }
         }
 
         @Override
@@ -269,61 +285,62 @@ public class LinkedList<T> implements List<T> {
 
         @Override
         public T next() {
-            // BEGIN (write your solution here)
-
-            // END
-            return null;
+            if (hasNext()) {
+                current = current.getNext();
+                currPos++;
+                return current.prev.element;
+            } else
+                throw new NoSuchElementException();
         }
 
         @Override
         public void add(final T element) {
+
             LinkedList.this.add(element);
         }
 
         @Override
         public void set(final T element) {
-            // BEGIN (write your solution here)
-
-            // END
+            if (current.prev == null) {
+                throw new IllegalArgumentException();
+            }
+            current.prev.element = element;
         }
 
         @Override
         public int previousIndex() {
-            // BEGIN (write your solution here)
-
-            // END
-            return 0;
+            if (current.prev == null)
+                return -1;
+            return currPos--;
         }
 
         @Override
         public int nextIndex() {
-            // BEGIN (write your solution here)
-
-            // END
-            return 0;
+            return currPos;
         }
 
         @Override
         public boolean hasPrevious() {
-            // BEGIN (write your solution here)
-
-            // END
+            if (current.prev != null)
+                return true;
             return false;
         }
 
         @Override
         public T previous() {
-            // BEGIN (write your solution here)
-
-            // END
-            return null;
+            if (!hasPrevious())
+                throw new NoSuchElementException();
+            currPos--;
+            current = current.getPrev();
+            return current.element;
         }
 
         @Override
         public void remove() {
-            // BEGIN (write your solution here)
-
-            // END
+            if (current.prev == null) {
+                throw new IllegalStateException();
+            }
+        LinkedList.this.remove(current);
         }
 
     }
