@@ -29,6 +29,17 @@ public class LinkedList<T> implements List<T> {
         size--;
     }
 
+    private T deleteElement(Item<T> item) {
+        item.prev.next = item.getNext();
+        // if current is not last one
+        if (item.getNext() != null)
+            item.getNext().prev = item.getPrev();
+        else
+            last = item.getPrev();
+        size--;
+        return item.element;
+    }
+
     @Override
     public int size() {
         return this.size;
@@ -97,13 +108,7 @@ public class LinkedList<T> implements List<T> {
         Item<T> current = first.getNext();
         while (current != null) {
             if (current.element.equals(o)) {
-                current.prev.next = current.getNext();
-                // if current is not last one
-                if (current.getNext() != null)
-                    current.getNext().prev = current.getPrev();
-                else
-                    last = current.getPrev();
-                size--;
+                deleteElement(current);
                 return true;
             }
             current = current.getNext();
@@ -286,6 +291,11 @@ public class LinkedList<T> implements List<T> {
         @Override
         public T next() {
             if (hasNext()) {
+                if (current.getNext() == null) {
+                    T elem = current.element;
+                    current = null;
+                    return elem;
+                }
                 current = current.getNext();
                 currPos++;
                 return current.prev.element;
@@ -337,10 +347,13 @@ public class LinkedList<T> implements List<T> {
 
         @Override
         public void remove() {
-            if (current.prev == null) {
+            if (current.prev == null)
                 throw new IllegalStateException();
-            }
-        LinkedList.this.remove(current);
+            if (current.prev == first)
+                LinkedList.this.deleteFirstElement();
+            else
+                LinkedList.this.deleteElement(current);
+
         }
 
     }
