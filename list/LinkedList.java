@@ -40,6 +40,19 @@ public class LinkedList<T> implements List<T> {
         return item.element;
     }
 
+    private Item<T> getItemByIndex(final int index) {
+        outOfTheRange(index);
+
+        int currPos = 0;
+        Item<T> current = first;
+        while(currPos != index){
+            current = current.getNext();
+            currPos++;
+        }
+        return current;
+
+    }
+
     @Override
     public int size() {
         return this.size;
@@ -161,12 +174,7 @@ public class LinkedList<T> implements List<T> {
     public T remove(final int index) {
         outOfTheRange(index);
 
-        int currPos = 0;
-        Item<T> currItem = first;
-        while (currPos != index) {
-            currItem = currItem.getNext();
-            currPos++;
-        }
+        Item<T> currItem = getItemByIndex(index);
         if (currItem == first) {
             deleteFirstElement();
             return currItem.element;
@@ -312,7 +320,7 @@ public class LinkedList<T> implements List<T> {
         @Override
         public void set(final T element) {
             if (current.prev == null) {
-                throw new IllegalArgumentException();
+                throw new IllegalStateException();
             }
             current.prev.element = element;
         }
