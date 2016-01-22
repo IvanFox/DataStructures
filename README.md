@@ -4,9 +4,9 @@
 Java implementation of DataStructures <br>
 
 <b><u> Consist of: </u></b>
-<b><li>List 
-<ul>ArrayList, implemented from List Interface (Collection API) (streams supported)</ul></li><br></b>
-<b><li>Linked List</b>
+<b><li>List </b>
+<ul>ArrayList, implemented from List Interface (Collection API) (streams supported)</ul></li><br>
+<b><li>Linked List</b><br>
 <ul>Linked List, implemented from List Interface (Collection API) (streams supported) </ul>
 </li>
 <li><b>Queue</b>
