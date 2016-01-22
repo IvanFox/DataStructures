@@ -4,9 +4,10 @@
 Java implementation of DataStructures <br>
 
 <b><u> Consist of: </u></b>
+<b><li>List 
+<ul>ArrayList, implemented from List Interface (Collection API) (streams supported)</ul></li><br></b>
 <b><li>Linked List</b>
-<ul>Linked List</ul>
-<ul>Circuit Linked List</ul>
+<ul>Linked List, implemented from List Interface (Collection API) (streams supported) </ul>
 </li>
 <li><b>Queue</b>
 <ul>Queue</ul>
@@ -14,7 +15,6 @@ Java implementation of DataStructures <br>
 <ul>Double Ended Queue</ul>
 </li>
 <b><li>Stack</li><br></b>
-<b><li>List (ArrayList version, implementing Collection API)</li><br></b>
 <b><li>Trees</b>
 <ul>Binary</ul>
 <ul>Huffman Algorithm</ul>
