@@ -25,8 +25,7 @@ public class LinkedList<T> implements List<T> {
 
     private void deleteFirstElement() {
         if (size() == 1) {
-            first = null;
-
+            clear();
         } else {
             first = first.next;
             first.prev = null;
