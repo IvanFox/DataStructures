@@ -47,8 +47,12 @@ public class LinkedList<T> implements List<T> {
     }
 
     private Item<T> getItemByIndex(final int index) {
-        outOfTheRange(index);
+        if (index < this.size / 2) {
+            return getItemByIndexFromStart(index);
+        } else return getItemByIndexFromEnd(index);
+    }
 
+    private Item<T> getItemByIndexFromStart(final int index) {
         int currPos = 0;
         Item<T> current = first;
         while (currPos != index) {
@@ -56,7 +60,25 @@ public class LinkedList<T> implements List<T> {
             currPos++;
         }
         return current;
+    }
 
+    private Item<T> getItemByIndexFromEnd(final int index) {
+        int currPos = this.size - 1;
+        Item<T> current = last;
+
+        while (currPos != index) {
+            current = current.getPrev();
+            currPos--;
+        }
+        return current;
+    }
+
+    private void removeItemFromMiddleEnd(Item<T> item) {
+        item.getPrev().next = item.next;
+        if (item.getNext() != null)
+            item.getNext().prev = item.getPrev();
+        else
+            last = item.getPrev();
     }
 
     @Override
@@ -81,7 +103,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        final T[] newM = (T[])new Object[this.size()];
+        final T[] newM = (T[]) new Object[this.size()];
         int i = 0;
         for (T element : this)
             newM[i++] = element;
@@ -91,7 +113,7 @@ public class LinkedList<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if (a.length < size)
-            a = (T1[])java.lang.reflect.Array.newInstance(
+            a = (T1[]) java.lang.reflect.Array.newInstance(
                     a.getClass().getComponentType(), size);
         int i = 0;
 
@@ -108,15 +130,11 @@ public class LinkedList<T> implements List<T> {
     public boolean add(final T t) {
         if (first == null) {
             first = new Item<>(t, null, null);
+            last = first;
         } else {
-            Item<T> current = first;
-            Item<T> prev = current;
-            while (current.getNext() != null) {
-                current = current.getNext();
-                prev = current;
-            }
+            Item<T> prev = last;
             last = new Item<>(t, prev, null);
-            current.next = last;
+            prev.next = last;
         }
         size++;
         return true;
@@ -124,7 +142,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean remove(final Object o) {
-        if (first == null) {
+        if (isEmpty()) {
             return false;
         }
         // if first element
@@ -194,11 +212,7 @@ public class LinkedList<T> implements List<T> {
             deleteFirstElement();
             return currItem.element;
         } else {
-            currItem.getPrev().next = currItem.next;
-            if (currItem.getNext() != null)
-                currItem.getNext().prev = currItem.getPrev();
-            else
-                last = currItem.getPrev();
+            removeItemFromMiddleEnd(currItem);
         }
         size--;
         return currItem.element;
@@ -211,17 +225,10 @@ public class LinkedList<T> implements List<T> {
         }
         outOfTheRange(start);
         outOfTheRange(end);
+
         List<T> subList = new LinkedList<>();
-
-        int currPos = 0;
-        Item<T> currItem = first;
-
-
-
-        while (currPos != start) {
-            currItem = currItem.getNext();
-            currPos++;
-        }
+        int currPos = start;
+        Item<T> currItem = getItemByIndex(start);
 
         while (currPos != end) {
             subList.add(currItem.element);
@@ -250,13 +257,12 @@ public class LinkedList<T> implements List<T> {
     public int indexOf(final Object target) {
         Item<T> current = first;
         int currPos = 0;
-        while (current.getNext() != null){
+        while (current.getNext() != null) {
             if (current.equals(target)) {
                 return currPos;
             }
             currPos++;
         }
-
         return -1;
     }
 
@@ -281,35 +287,31 @@ public class LinkedList<T> implements List<T> {
     @Override
     public T get(final int index) {
         outOfTheRange(index);
-        int currPos = 0;
-        Item<T> currItem = first;
-        while (currPos != index) {
-            currItem = currItem.getNext();
-            currPos++;
-        }
+        Item<T> currItem = getItemByIndex(index);
         return currItem.getElement();
     }
 
 
     private class ElementsIterator implements ListIterator<T> {
 
-        private Item<T> current = first;
+        private Item<T> current;
 
         private Item<T> last;
 
 
-        int currPos = 0;
+        int currPos;
 
         public ElementsIterator() {
             this(0);
         }
 
         public ElementsIterator(final int index) {
-            outOfTheRange(index);
-            current = first;
-            while (currPos != index) {
-                current = current.getNext();
-                currPos++;
+            if (index != 0) {
+                current = getItemByIndex(index);
+                currPos = index;
+            } else {
+                current = first;
+                currPos = 0;
             }
         }
 
@@ -323,6 +325,7 @@ public class LinkedList<T> implements List<T> {
             if (hasNext()) {
                 currPos++;
                 last = current;
+                // if no elements left
                 if (current.getNext() == null) {
                     current = null;
                     return last.element;
@@ -350,7 +353,7 @@ public class LinkedList<T> implements List<T> {
         public int previousIndex() {
             if (last == null)
                 return -1;
-            return currPos-1 ;
+            return currPos - 1;
         }
 
         @Override
