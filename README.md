@@ -5,27 +5,26 @@ Java implementation of DataStructures <br>
 
 <b><u> Consist of: </u></b><br>
 <b><li>List </b>
-<ul>ArrayList, implemented from List Interface (Collection API) (streams supported)</ul></li>
-<b><li>Linked List</b><br><br>
-<ul>Linked List, implemented from List Interface (Collection API) (streams supported) </ul>
+<ul><u>ArrayList</u>, implemented from List Interface</ul></li>
+<b><li>Linked List</b>
+<ul><u>Double Linked List</u>, implemented from List Interface </ul>
 </li>
 <li><b>Queue</b>
-<ul>Queue</ul>
-<ul>Circular Queue</ul>
-<ul>Double Ended Queue</ul>
+<ul><u>Queue</u></ul>
+<ul><u>Circular Queue</u></ul>
+<ul><u>Double Ended Queue</u></ul>
 </li>
 <b><li>Stack</li><br></b>
 <b><li>Set<br></b>
-<ul>HashSet | based on HashMap</ul></li>
+<ul><u>HashSet</u> | based on HashMap</ul></li>
 <b><li>Trees</b>
-<ul>Binary
+<ul><u>Binary</u>
 <ul>Immutable version | Concurrent safe (?)</ul>
 <ul>Mutable version</ul>
 </ul>
-<ul>Huffman Algorithm</ul>
-<ul>AVL Tree</ul>
+<ul><u>Huffman Algorithm</u></ul>
+<ul><u>AVL Tree</u></ul>
 </li>
 <b><li>Map</b>
-<ul>Array based map | List </ul>
-
+<ul><u>Array based map</u> |  as ArrayList </ul>
 </li>
