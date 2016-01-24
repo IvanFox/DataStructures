@@ -15,12 +15,16 @@ Java implementation of DataStructures <br>
 <ul>Double Ended Queue</ul>
 </li>
 <b><li>Stack</li><br></b>
+<b><li>Set<br></b>
+<ul>HashSet | based on HashMap</ul></li>
 <b><li>Trees</b>
-<ul>Binary</ul>
+<ul>Binary
+<ul>Immutable version | Concurrent safe (?)</ul>
+<ul>Mutable version</ul>
+</ul>
 <ul>Huffman Algorithm</ul>
 <ul>AVL Tree</ul>
 </li>
-<b><li>Graphs</li></b><br>
 <b><li>Map</b>
 <ul>Array based map | List </ul>
 
