@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class ArrayBasedMap<K, V> implements Map<K, V> {
 
-    private List<Pair> values = new ArrayList<Pair>();
+    private List<Pair> values = new ArrayList<>();
 
     @Override
     public int size() {
