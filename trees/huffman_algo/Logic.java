@@ -31,12 +31,16 @@ public class Logic {
         hashMap = new HashMap<>();
         nodes = new ArrayList<>();
         huffmanCodes = new HashMap<>();
-        initClassStructure();
+
     }
 
-    public static Logic getInstance(String filename) {
-        Logic.filename = filename;
+    public static Logic getInstance() {
         return LazyHolder.INSTANCE;
+    }
+
+    public void setPathToFile(String filename) {
+        Logic.filename = filename;
+        initClassStructure();
     }
 
 
@@ -57,15 +61,15 @@ public class Logic {
         }
     }
 
-    public static HashMap<Character, Integer> getHashMap() {
+    public  HashMap<Character, Integer> getHashMap() {
         return hashMap;
     }
 
-    private static List<Node> convertHashMapToList() {
+    private  List<Node> convertHashMapToList() {
         return hashMap.entrySet().stream().map(Node::new).collect(Collectors.toList());
     }
 
-    private static Node createTree(List<Node> list) {
+    private  Node createTree(List<Node> list) {
         Node lowest1, lowest2;
         while (list.size() != 1) {
             lowest1 = list.stream().min(Comparator.<Node>naturalOrder()).get();
@@ -77,7 +81,7 @@ public class Logic {
         return list.get(0);
     }
 
-    private static HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
+    private  HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
         if (root.isLeaf()) {
             map.put(root.getCharacter(), s);
             return map;
@@ -87,7 +91,7 @@ public class Logic {
         return map;
     }
 
-    public static HashMap<Character, String> getHuffmanCodes() {
+    public  HashMap<Character, String> getHuffmanCodes() {
         if (huffmanCodes != null) return huffmanCodes;
         return null;
     }
@@ -99,7 +103,7 @@ public class Logic {
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
     }
 
-    public static StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
+    public  StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
         StringBuilder currentChar = new StringBuilder(); // holds binary representation of first retrieved char
         StringBuilder decodedOutput = new StringBuilder(); // used to return decoded output
 
@@ -117,7 +121,7 @@ public class Logic {
         return decodedOutput;
     }
 
-    public static StringBuilder generateEncodedOutput() throws Exception {
+    public  StringBuilder generateEncodedOutput() throws Exception {
         StringBuilder output = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;
