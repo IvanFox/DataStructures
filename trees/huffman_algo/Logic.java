@@ -16,19 +16,29 @@ import java.util.stream.Collectors;
 
 public class Logic {
 
-    private final String filename;
-    private HashMap<Character, Integer> hashMap;
-    private HashMap<Character, String> huffmanCodes;
-    private List<Node> nodes;
-    private Node root;
+    private static class LazyHolder {
+        private static final Logic INSTANCE = new Logic();
+    }
 
-    public Logic(String filename) throws Exception {
-        this.filename = filename;
+
+    private static String filename;
+    private static HashMap<Character, Integer> hashMap;
+    private static HashMap<Character, String> huffmanCodes;
+    private static List<Node> nodes;
+    private static Node root;
+
+    private Logic() {
         hashMap = new HashMap<>();
         nodes = new ArrayList<>();
         huffmanCodes = new HashMap<>();
         initClassStructure();
     }
+
+    public static Logic getInstance(String filename) {
+        Logic.filename = filename;
+        return LazyHolder.INSTANCE;
+    }
+
 
     private void readFile() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
@@ -47,15 +57,15 @@ public class Logic {
         }
     }
 
-    public HashMap<Character, Integer> getHashMap() {
+    public static HashMap<Character, Integer> getHashMap() {
         return hashMap;
     }
 
-    private List<Node> convertHashMapToList() {
+    private static List<Node> convertHashMapToList() {
         return hashMap.entrySet().stream().map(Node::new).collect(Collectors.toList());
     }
 
-    private Node createTree(List<Node> list) {
+    private static Node createTree(List<Node> list) {
         Node lowest1, lowest2;
         while (list.size() != 1) {
             lowest1 = list.stream().min(Comparator.<Node>naturalOrder()).get();
@@ -67,7 +77,7 @@ public class Logic {
         return list.get(0);
     }
 
-    private HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
+    private static HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
         if (root.isLeaf()) {
             map.put(root.getCharacter(), s);
             return map;
@@ -77,19 +87,19 @@ public class Logic {
         return map;
     }
 
-    public HashMap<Character, String> getHuffmanCodes() {
+    public static HashMap<Character, String> getHuffmanCodes() {
         if (huffmanCodes != null) return huffmanCodes;
         return null;
     }
 
-    private void initClassStructure() throws Exception {
+    private void initClassStructure() {
         readFile();
         nodes = convertHashMapToList();
         root = createTree(nodes);
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
     }
 
-    public StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
+    public static StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
         StringBuilder currentChar = new StringBuilder(); // holds binary representation of first retrieved char
         StringBuilder decodedOutput = new StringBuilder(); // used to return decoded output
 
@@ -107,7 +117,7 @@ public class Logic {
         return decodedOutput;
     }
 
-    public StringBuilder generateEncodedOutput() throws Exception {
+    public static StringBuilder generateEncodedOutput() throws Exception {
         StringBuilder output = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;

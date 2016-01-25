@@ -1,5 +1,7 @@
 package dataStructures.trees.huffman_algo;
 
+import sun.rmi.runtime.Log;
+
 import java.util.Scanner;
 
 /**
@@ -14,15 +16,15 @@ public class Demo {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the full file location");
-        Logic logic = new Logic(scanner.nextLine());
-        logic.getHashMap().forEach((key, value) -> System.out.println("Character: " + key + "\tOccurrence: "  + value));
-        logic.getHuffmanCodes().forEach((k,v) -> System.out.println("Character: " + k  + "\tCode: " + v));
+        Logic.getInstance(scanner.nextLine());
+        Logic.getHashMap().forEach((key, value) -> System.out.println("Character: " + key + "\tOccurrence: "  + value));
+        Logic.getHuffmanCodes().forEach((k, v) -> System.out.println("Character: " + k  + "\tCode: " + v));
 
 
         System.out.println("\nEncoded output:");
-        System.out.println(logic.generateEncodedOutput());
+        System.out.println(Logic.generateEncodedOutput());
         System.out.println("\nDecoded output");
-        System.out.println(logic.decodeEncodedOutput(logic.generateEncodedOutput()));
+        System.out.println(Logic.decodeEncodedOutput(Logic.generateEncodedOutput()));
 
 
     }
