@@ -1,6 +1,5 @@
 package dataStructures.trees.binary.immutable;
 
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 /**
@@ -17,6 +16,8 @@ public interface INode<T> {
     public void forEach(final Consumer<T> consumer);
 
     public int count();
+
+    public T getValue();
 
 
 }

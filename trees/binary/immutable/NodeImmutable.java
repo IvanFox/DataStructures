@@ -56,4 +56,9 @@ public class NodeImmutable<T extends Comparable> implements INode<T> {
         int rightCount = right != null ? right.count() : 0;
         return  leftCount + rightCount + 1;
     }
+
+    @Override
+    public T getValue() {
+        return value;
+    }
 }
