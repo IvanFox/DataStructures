@@ -13,13 +13,14 @@ import java.util.*;
 public class LinkedList<T> implements List<T> {
 
     private Item<T> first = null;
-
+    private Item<T> middle = null;
     private Item<T> last = null;
 
     private int size;
 
+
     private boolean outOfTheRange(int index) {
-        if ((index > this.size) && (index < 0)) throw new IndexOutOfBoundsException();
+        if ((index > this.size) || (index < 0) || isEmpty()) throw new IndexOutOfBoundsException();
         else return false;
     }
 
@@ -46,6 +47,9 @@ public class LinkedList<T> implements List<T> {
     }
 
     private Item<T> getItemByIndex(final int index) {
+        if (index == this.size / 2) {
+            return middle;
+        }
         if (index < this.size / 2) {
             return getItemByIndexFromStart(index);
         } else return getItemByIndexFromEnd(index);
@@ -78,6 +82,12 @@ public class LinkedList<T> implements List<T> {
             item.getNext().prev = item.getPrev();
         else
             last = item.getPrev();
+    }
+
+    private void updateMiddleItem() {
+        if (this.size % 2 == 0) {
+            middle = middle.getNext();
+        }
     }
 
     @Override
@@ -130,12 +140,14 @@ public class LinkedList<T> implements List<T> {
         if (first == null) {
             first = new Item<>(t, null, null);
             last = first;
+            middle = first;
         } else {
             Item<T> prev = last;
             last = new Item<>(t, prev, null);
             prev.next = last;
         }
         size++;
+        updateMiddleItem();
         return true;
     }
 
@@ -267,7 +279,22 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(final int index, final T element) {
-        throw new UnsupportedOperationException();
+        outOfTheRange(index);
+        if (index == this.size) { // if adding to the end of collection
+            add(element);
+        } else {
+            Item<T> item = getItemByIndex(index);
+            if (item == first) { // if index is pointing to first element
+                first.prev = new Item<>(element, null, first);
+                first = first.prev;
+            } else {
+                Item<T> prev = item.getPrev();
+                item.prev = new Item<>(element, item, prev);
+                prev.next = item.prev;
+            }
+            size++;
+            updateMiddleItem();
+        }
     }
 
     @Override
