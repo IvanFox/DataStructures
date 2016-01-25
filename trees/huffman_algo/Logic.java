@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,21 +30,19 @@ public class Logic {
         initClassStructure();
     }
 
-     private void readFile() {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+    private void readFile() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int ch, value;
             while ((ch = bufferedReader.read()) != -1) {
                 // if current char is not exist as a value in HashMap -> add it
-                if(hashMap.get((char)ch) == null) {
+                if (hashMap.get((char) ch) == null) {
                     hashMap.put((char) ch, 1);
-                }
-                else { // else increment value
-                    value = hashMap.get((char)ch);
-                    hashMap.put((char)ch, ++value);
+                } else { // else increment value
+                    value = hashMap.get((char) ch);
+                    hashMap.put((char) ch, ++value);
                 }
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
 
         }
     }
@@ -53,23 +51,20 @@ public class Logic {
         return hashMap;
     }
 
-    private void convertHashMapToList(){
-        Iterator<Entry<Character, Integer>> itr = hashMap.entrySet().iterator();
-        while(itr.hasNext()){
-            nodes.add(new Node(itr.next()));
-        }
+    private List<Node> convertHashMapToList() {
+        return hashMap.entrySet().stream().map(Node::new).collect(Collectors.toList());
     }
 
-     private void  createTree(){
+    private Node createTree(List<Node> list) {
         Node lowest1, lowest2;
-        while (nodes.size() != 1){
-            lowest1 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
-            nodes.remove(lowest1);
-            lowest2 = nodes.stream().min(Comparator.<Node>naturalOrder()).get();
-            nodes.remove(lowest2);
-            nodes.add(new Node(lowest1, lowest2));
+        while (list.size() != 1) {
+            lowest1 = list.stream().min(Comparator.<Node>naturalOrder()).get();
+            list.remove(lowest1);
+            lowest2 = list.stream().min(Comparator.<Node>naturalOrder()).get();
+            list.remove(lowest2);
+            list.add(new Node(lowest1, lowest2));
         }
-        root = nodes.get(0);
+        return list.get(0);
     }
 
     private HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
@@ -89,20 +84,20 @@ public class Logic {
 
     private void initClassStructure() throws Exception {
         readFile();
-        convertHashMapToList();
-        createTree();
+        nodes = convertHashMapToList();
+        root = createTree(nodes);
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
     }
 
-    public StringBuilder decodeEncodedOutput(StringBuilder endodedOutput){
+    public StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
         StringBuilder currentChar = new StringBuilder(); // holds binary representation of first retrieved char
         StringBuilder decodedOutput = new StringBuilder(); // used to return decoded output
 
-        while (endodedOutput.length() > 0){
+        while (endodedOutput.length() > 0) {
             currentChar.append(endodedOutput.charAt(0));
             endodedOutput.deleteCharAt(0);
             // when currentChar binary representation matched with values in HashMap -> find and add the key of this value
-            if (getHuffmanCodes().containsValue(currentChar.toString())){
+            if (getHuffmanCodes().containsValue(currentChar.toString())) {
                 getHuffmanCodes().entrySet().stream().filter(e -> Objects.equals(e.getValue(), currentChar.toString())).forEach(e -> {
                     decodedOutput.append(e.getKey());
                     currentChar.delete(0, currentChar.length());
@@ -114,7 +109,7 @@ public class Logic {
 
     public StringBuilder generateEncodedOutput() throws Exception {
         StringBuilder output = new StringBuilder();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;
             while ((c = bufferedReader.read()) != -1) {
                 output.append(huffmanCodes.get((char) c));
