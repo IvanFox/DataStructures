@@ -47,9 +47,9 @@ public class LinkedList<T> implements List<T> {
     }
 
     private Item<T> getItemByIndex(final int index) {
-        if (index == this.size / 2) {
-            return middle;
-        }
+//        if (index == this.size / 2) {
+//            return middle;
+//        }
         if (index < this.size / 2) {
             return getItemByIndexFromStart(index);
         } else return getItemByIndexFromEnd(index);
