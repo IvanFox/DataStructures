@@ -5,7 +5,7 @@ package dataStructures.queue;
  * Student No: c00185055
  * All rights reserved
  */
-public class Queue {
+public class Queue <T> {
 
     private Link head;
     private Link tail;
@@ -25,7 +25,8 @@ public class Queue {
         return head == null;
     }
 
-    public void enqueue(Link link) {
+    public void enqueue(T element) {
+        Link<T> link = new Link<>(element);
         if (!isEmpty()) {
             tail.setNext(link);
             tail = link;
