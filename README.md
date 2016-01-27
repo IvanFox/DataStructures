@@ -21,6 +21,8 @@ Java implementation of DataStructures <br>
 <ul><u>Binary</u>
 <ul>Immutable version | Concurrent safe (?)</ul>
 <ul>Mutable version</ul>
+<ul>AVL Tree</ul>
+<ul>Min Heap | Array version</ul>
 </ul>
 <ul><u>Huffman Algorithm</u></ul>
 <ul><u>AVL Tree</u></ul>
