@@ -106,6 +106,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
 
     class MinHeapIterator implements Iterator<T> {
 
+
         @Override
         public boolean hasNext() {
             return !isEmpty();
