@@ -25,7 +25,6 @@ Java implementation of DataStructures <br>
 <ul>Min Heap | Array version</ul>
 </ul>
 <ul><u>Huffman Algorithm</u></ul>
-<ul><u>AVL Tree</u></ul>
 </li>
 <b><li>Map</b>
 <ul><u>Array based map</u> |  as ArrayList </ul>
