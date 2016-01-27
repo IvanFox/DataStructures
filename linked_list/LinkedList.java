@@ -250,12 +250,12 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<T> listIterator() {
         return new ElementsIterator(0);
     }
 
     @Override
-    public ListIterator listIterator(final int index) {
+    public ListIterator<T> listIterator(final int index) {
         return new ElementsIterator(index);
     }
 
