@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 /**
@@ -24,12 +23,12 @@ public class Logic {
     private static String filename;
     private static HashMap<Character, Integer> hashMap;
     private static HashMap<Character, String> huffmanCodes;
-    private static List<Node> nodes;
+    private static Queue<Node> nodes;
     private static Node root;
 
     private Logic() {
         hashMap = new HashMap<>();
-        nodes = new ArrayList<>();
+        nodes = new PriorityQueue<>();
         huffmanCodes = new HashMap<>();
 
     }
@@ -61,27 +60,28 @@ public class Logic {
         }
     }
 
-    public  HashMap<Character, Integer> getHashMap() {
+    public HashMap<Character, Integer> getHashMap() {
         return hashMap;
     }
 
-    private  List<Node> convertHashMapToList() {
-        return hashMap.entrySet().stream().map(Node::new).collect(Collectors.toList());
+    private Queue<Node> convertHashMapToList() {
+        Queue<Node> queue = new PriorityQueue<>((Comparator.comparing(Node::getOccurrence)));
+        hashMap.entrySet().stream().map(Node::new).forEach(queue::add);
+        return queue;
     }
 
-    private  Node createTree(List<Node> list) {
+    private Node createTree(Queue<Node> list) {
+
         Node lowest1, lowest2;
         while (list.size() != 1) {
-            lowest1 = list.stream().min(Comparator.<Node>naturalOrder()).get();
-            list.remove(lowest1);
-            lowest2 = list.stream().min(Comparator.<Node>naturalOrder()).get();
-            list.remove(lowest2);
+            lowest1 = list.remove();
+            lowest2 = list.remove();
             list.add(new Node(lowest1, lowest2));
         }
-        return list.get(0);
+        return list.remove();
     }
 
-    private  HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
+    private HashMap<Character, String> generateHuffmanScheme(Node root, HashMap<Character, String> map, String s) {
         if (root.isLeaf()) {
             map.put(root.getCharacter(), s);
             return map;
@@ -91,7 +91,7 @@ public class Logic {
         return map;
     }
 
-    public  HashMap<Character, String> getHuffmanCodes() {
+    public HashMap<Character, String> getHuffmanCodes() {
         if (huffmanCodes != null) return huffmanCodes;
         return null;
     }
@@ -103,7 +103,7 @@ public class Logic {
         huffmanCodes = generateHuffmanScheme(root, huffmanCodes, "");
     }
 
-    public  StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
+    public StringBuilder decodeEncodedOutput(StringBuilder endodedOutput) {
         StringBuilder currentChar = new StringBuilder(); // holds binary representation of first retrieved char
         StringBuilder decodedOutput = new StringBuilder(); // used to return decoded output
 
@@ -121,7 +121,7 @@ public class Logic {
         return decodedOutput;
     }
 
-    public  StringBuilder generateEncodedOutput() throws Exception {
+    public StringBuilder generateEncodedOutput() throws Exception {
         StringBuilder output = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             int c;
@@ -130,5 +130,56 @@ public class Logic {
             }
         }
         return output;
+    }
+
+
+    private class Node {
+
+        private Character character;
+        private int occurrence;
+        private Node leftChild;
+        private Node rightChild;
+
+        // constructor for internal node
+        public Node(Node one, Node two) {
+            this.leftChild = one;
+            this.rightChild = two;
+            this.occurrence = one.getOccurrence() + two.getOccurrence();
+            this.character = null;
+        }
+
+        public Node(Map.Entry<Character, Integer> entry){
+            this.character = entry.getKey();
+            this.occurrence = entry.getValue();
+        }
+
+        public Character getCharacter() {
+            return character;
+        }
+
+        public int getOccurrence() {
+            return occurrence;
+        }
+
+
+        public Node getLeftChild() {
+            return leftChild;
+        }
+
+
+        public Node getRightChild() {
+            return rightChild;
+        }
+
+
+        public boolean isLeaf(){
+            return leftChild == null && rightChild == null;
+        }
+
+        @Override
+        public String toString(){
+            return "Character: " + character + " = Occurrence: " + occurrence;
+        }
+
     }
 }
