@@ -46,6 +46,9 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
     }
 
     public void insertElement(T element) {
+        if (isFull()) {
+            increaseSize();
+        }
         items[++size] = element;
         upHeap(size);
     }
