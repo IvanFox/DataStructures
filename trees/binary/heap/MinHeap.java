@@ -14,6 +14,8 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
 
     T items[];
     int size = 0;
+
+    final int ROOT = 1;
     final int INITIAL_SIZE;
 
 
@@ -25,6 +27,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
 
     public MinHeap(int initialSize) {
         this.INITIAL_SIZE = initialSize;
+        items = (T[]) new Comparable[INITIAL_SIZE];
     }
 
     public boolean isEmpty() {
@@ -58,9 +61,9 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
             throw new NoSuchElementException();
         }
 
-        T element = items[1];
-        items[1] = items[size--];
-        downHeap(1);
+        T element = items[ROOT];
+        items[ROOT] = items[size--];
+        downHeap(ROOT);
         return element;
 
     }
@@ -98,7 +101,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
     }
 
     public T peek() {
-        return items[1];
+        return items[ROOT];
     }
 
     @Override
