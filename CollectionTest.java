@@ -3,6 +3,7 @@ package dataStructures;
 import dataStructures.linked_list.LinkedList;
 import org.openjdk.jmh.annotations.Benchmark;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -28,9 +29,13 @@ public class CollectionTest {
     public void testRemoveFromEndMethod() {
         final int SIZE = 10_000;
 
-        final List<Integer> integerList = new LinkedList<>();
+        final List<Double> integerList = new LinkedList<>();
         for (int i = 0; ++i < SIZE; ) {
-            integerList.add(i);
+            integerList.add(4345.0);
+        }
+
+        for (int i = 1; i < SIZE; i++) {
+            integerList.remove(integerList.size() / 2);
         }
 
     }
@@ -39,12 +44,16 @@ public class CollectionTest {
     public void testRemoveFromStartMethod() {
         final int SIZE = 10_000;
 
-        LinkedList<Integer> arrCollection = new LinkedList<>();
+        LinkedList<Double> arrCollection = new LinkedList<>();
         for (int i = 0; i < SIZE; i++) {
-            arrCollection.add(i);
+            arrCollection.add(4.3);
         }
-        for (int i = 0; i < SIZE; i++) {
-            arrCollection.remove(i);
+
+
+        Iterator<Double> iterator = arrCollection.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
         }
 
     }
