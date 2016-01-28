@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * <p>
  * labs
  */
-public class MinHeap<T extends Comparable> implements Iterable<T> {
+public class MinHeap<T extends Comparable> implements  Heap<T>, Iterable<T> {
 
     T items[];
     int size = 0;
@@ -34,7 +34,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
         return this.size == 0;
     }
 
-    public int getSize() {
+    public int size() {
         return this.size;
     }
 
@@ -48,7 +48,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
         items = copy;
     }
 
-    public void insertElement(T element) {
+    public void insert(T element) {
         if (isFull()) {
             increaseSize();
         }
@@ -110,7 +110,7 @@ public class MinHeap<T extends Comparable> implements Iterable<T> {
     }
 
 
-    class MinHeapIterator implements Iterator<T> {
+    private class MinHeapIterator implements Iterator<T> {
 
 
         @Override
