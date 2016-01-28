@@ -1,7 +1,13 @@
 package dataStructures.linked_list;
 
 import java.util.*;
-
+/*
+    Benchmark                                                    Mode  Cnt     Score     Error  Units
+    dataStructures.CollectionTest.testArrayCollectionAddMethod  thrpt  200  4098.751 ± 253.193  ops/s
+    dataStructures.CollectionTest.testRemoveFromEndMethod       thrpt  200    14.628 ±   0.578  ops/s
+    dataStructures.CollectionTest.testRemoveFromStartMethod     thrpt  200  2298.000 ± 142.020  ops/s
+/
+ */
 /**
  * @author IvanLis
  * @version 1.0
