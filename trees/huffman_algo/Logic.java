@@ -148,7 +148,7 @@ public class Logic {
             this.character = null;
         }
 
-        public Node(Map.Entry<Character, Integer> entry){
+        public Node(Map.Entry<Character, Integer> entry) {
             this.character = entry.getKey();
             this.occurrence = entry.getValue();
         }
@@ -172,12 +172,12 @@ public class Logic {
         }
 
 
-        public boolean isLeaf(){
+        public boolean isLeaf() {
             return leftChild == null && rightChild == null;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "Character: " + character + " = Occurrence: " + occurrence;
         }
 
