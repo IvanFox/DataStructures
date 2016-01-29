@@ -37,7 +37,6 @@ public class LinkedList<T> implements List<T> {
             first = first.next;
             first.prev = null;
         }
-        size--;
 
     }
 
@@ -48,7 +47,7 @@ public class LinkedList<T> implements List<T> {
             item.getNext().prev = item.getPrev();
         else
             last = item.getPrev();
-        size--;
+
         return item.element;
     }
 
@@ -90,9 +89,17 @@ public class LinkedList<T> implements List<T> {
             last = item.getPrev();
     }
 
-    private void updateMiddleItem() {
-        if (this.size % 2 == 0) {
+    private void updateMiddleItemAfterInsert() {
+        if (this.size % 2 == 1) {
             middle = middle.getNext();
+        }
+    }
+
+    private void updateMiddleElementAfterRemove(Item<T> current){
+        if (current == middle)
+            middle = middle.getPrev();
+        else if (this.size % 2 == 0) {
+            middle = middle.getPrev();
         }
     }
 
@@ -143,6 +150,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean add(final T t) {
+        size++;
         if (first == null) {
             first = new Item<>(t, null, null);
             last = first;
@@ -151,9 +159,8 @@ public class LinkedList<T> implements List<T> {
             Item<T> prev = last;
             last = new Item<>(t, prev, null);
             prev.next = last;
+            updateMiddleItemAfterInsert();
         }
-        size++;
-        updateMiddleItem();
         return true;
     }
 
@@ -162,6 +169,7 @@ public class LinkedList<T> implements List<T> {
         if (isEmpty()) {
             return false;
         }
+        size--;
         // if first element
         if (first.getElement().equals(o)) {
             deleteFirstElement();
@@ -171,11 +179,13 @@ public class LinkedList<T> implements List<T> {
         Item<T> current = first.getNext();
         while (current != null) {
             if (current.element.equals(o)) {
+                updateMiddleElementAfterRemove(current);
                 deleteElement(current);
                 return true;
             }
             current = current.getNext();
         }
+        
         return false;
 
     }
@@ -229,6 +239,7 @@ public class LinkedList<T> implements List<T> {
             deleteFirstElement();
             return currItem.element;
         } else {
+            updateMiddleElementAfterRemove(currItem);
             removeItemFromMiddleEnd(currItem);
         }
         size--;
@@ -299,7 +310,7 @@ public class LinkedList<T> implements List<T> {
                 prev.next = item.prev;
             }
             size++;
-            updateMiddleItem();
+            updateMiddleItemAfterInsert();
         }
     }
 
