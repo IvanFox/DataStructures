@@ -1,13 +1,7 @@
 package dataStructures.linked_list;
 
 import java.util.*;
-/*
-    Benchmark                                                    Mode  Cnt     Score     Error  Units
-    dataStructures.CollectionTest.testArrayCollectionAddMethod  thrpt  200  4098.751 ± 253.193  ops/s
-    dataStructures.CollectionTest.testRemoveFromEndMethod       thrpt  200    14.628 ±   0.578  ops/s
-    dataStructures.CollectionTest.testRemoveFromStartMethod     thrpt  200  2298.000 ± 142.020  ops/s
-/
- */
+
 /**
  * @author IvanLis
  * @version 1.0
@@ -19,7 +13,6 @@ import java.util.*;
 public class LinkedList<T> implements List<T> {
 
     private Item<T> first = null;
-    private Item<T> middle = null;
     private Item<T> last = null;
 
     private int size;
@@ -37,6 +30,7 @@ public class LinkedList<T> implements List<T> {
             first = first.next;
             first.prev = null;
         }
+        size--;
 
     }
 
@@ -47,14 +41,11 @@ public class LinkedList<T> implements List<T> {
             item.getNext().prev = item.getPrev();
         else
             last = item.getPrev();
-
+        size--;
         return item.element;
     }
 
     private Item<T> getItemByIndex(final int index) {
-//        if (index == this.size / 2) {
-//            return middle;
-//        }
         if (index < this.size / 2) {
             return getItemByIndexFromStart(index);
         } else return getItemByIndexFromEnd(index);
@@ -89,19 +80,6 @@ public class LinkedList<T> implements List<T> {
             last = item.getPrev();
     }
 
-    private void updateMiddleItemAfterInsert() {
-        if (this.size % 2 == 1) {
-            middle = middle.getNext();
-        }
-    }
-
-    private void updateMiddleElementAfterRemove(Item<T> current){
-        if (current == middle)
-            middle = middle.getPrev();
-        else if (this.size % 2 == 0) {
-            middle = middle.getPrev();
-        }
-    }
 
     @Override
     public int size() {
@@ -150,17 +128,15 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean add(final T t) {
-        size++;
         if (first == null) {
             first = new Item<>(t, null, null);
             last = first;
-            middle = first;
         } else {
             Item<T> prev = last;
             last = new Item<>(t, prev, null);
             prev.next = last;
-            updateMiddleItemAfterInsert();
         }
+        size++;
         return true;
     }
 
@@ -169,7 +145,6 @@ public class LinkedList<T> implements List<T> {
         if (isEmpty()) {
             return false;
         }
-        size--;
         // if first element
         if (first.getElement().equals(o)) {
             deleteFirstElement();
@@ -179,13 +154,11 @@ public class LinkedList<T> implements List<T> {
         Item<T> current = first.getNext();
         while (current != null) {
             if (current.element.equals(o)) {
-                updateMiddleElementAfterRemove(current);
                 deleteElement(current);
                 return true;
             }
             current = current.getNext();
         }
-        
         return false;
 
     }
@@ -239,7 +212,6 @@ public class LinkedList<T> implements List<T> {
             deleteFirstElement();
             return currItem.element;
         } else {
-            updateMiddleElementAfterRemove(currItem);
             removeItemFromMiddleEnd(currItem);
         }
         size--;
@@ -267,12 +239,12 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public ListIterator<T> listIterator() {
+    public ListIterator listIterator() {
         return new ElementsIterator(0);
     }
 
     @Override
-    public ListIterator<T> listIterator(final int index) {
+    public ListIterator listIterator(final int index) {
         return new ElementsIterator(index);
     }
 
@@ -310,7 +282,6 @@ public class LinkedList<T> implements List<T> {
                 prev.next = item.prev;
             }
             size++;
-            updateMiddleItemAfterInsert();
         }
     }
 
