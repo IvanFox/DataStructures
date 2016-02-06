@@ -1,6 +1,7 @@
 package dataStructures.linked_list;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author IvanLis
@@ -173,9 +174,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean addAll(final Collection<? extends T> c) {
-        for (final T item : c) {
-            add(item);
-        }
+        addAll(c.stream().collect(Collectors.toList()));
         return true;
     }
 
