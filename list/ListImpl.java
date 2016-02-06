@@ -12,7 +12,6 @@ import java.util.*;
 // ArrayList implementation
 public class ListImpl<T> implements List<T> {
     private int DEFAULT_SIZE = 10;
-    private int index = 0;
     int size = 0;
     T items[];
 
