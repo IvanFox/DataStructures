@@ -39,7 +39,7 @@ public class MinHeap<T extends Comparable> implements  Heap<T>, Iterable<T> {
     }
 
     private boolean isFull() {
-        return this.size != items.length;
+        return this.size == items.length-1;
     }
 
     private void increaseSize() {
